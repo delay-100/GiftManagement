@@ -14,6 +14,6 @@ public class GiftRequest {
 
     private String name;
     private int price;
-    private String sales_link;
+    private String salesLink;
 
 }
