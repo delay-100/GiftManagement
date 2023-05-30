@@ -18,7 +18,7 @@ public class Gift {
     private Long postId;
     private String name;
     private int price;
-    private String sales_link;
+    private String salesLink;
 
     @CreationTimestamp
     @Column(updatable = false)

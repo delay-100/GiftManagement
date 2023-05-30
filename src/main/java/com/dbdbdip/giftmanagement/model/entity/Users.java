@@ -27,3 +27,4 @@ public class Users {
     @Column(updatable = false)
     private LocalDateTime createdDt;
 }
+
