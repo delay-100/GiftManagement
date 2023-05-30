@@ -24,7 +24,7 @@
 - 각자 branch 위치만 사용
 - <b>작업 후 공용 스프레드 시트 수정</b>
 ```
-https://docs.google.com/spreadsheets/d/16sM6Ys2sdX6XfJ24DwlpQ8nKQ-M5O-r3yLUhIxicAmE/edit#gid=0
+https://docs.google.com/spreadsheets/d/1etbfkTbC5fK2ZxU7mUW5zJ4jBd48RMnKlROYoGpQviI/edit#gid=289789655
 ```
 - merge 절대 금지
 - compile error 상태로 commit 금지
