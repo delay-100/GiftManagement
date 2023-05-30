@@ -1,6 +1,6 @@
 package com.dbdbdip.giftmanagement.controller;
 
-import com.dbdbdip.giftmanagement.model.dto.GiftDto;
+import com.dbdbdip.giftmanagement.model.dto.GiftResponse;
 import com.dbdbdip.giftmanagement.service.GiftService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,11 +16,14 @@ import java.util.List;
 public class GiftController {
 
     private final GiftService giftService;
+
     @GetMapping("/list")
     public String getGiftList(){
-        List<GiftDto> giftList = giftService.getGiftList();
+        List<GiftResponse> giftList = giftService.getGiftList();
+        System.out.println("---aa");
         return "gift/giftList.html";
     }
+
     @PostMapping("/new")
     public String createGift(){
 
