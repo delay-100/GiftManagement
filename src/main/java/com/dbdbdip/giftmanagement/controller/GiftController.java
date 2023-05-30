@@ -17,11 +17,14 @@ import java.util.List;
 public class GiftController {
 
     private final GiftService giftService;
+    
+    // user의 gift 화면
     @GetMapping()
     public String getGift(){
         return "gift/gift";
     }
 
+    // user가 전체 gift 리스트 보기
     @GetMapping("/list")
     public String getGiftList(Model model){
         List<GiftDTO> giftList = giftService.getGiftList();
@@ -29,4 +32,7 @@ public class GiftController {
         return "gift/giftList";
     }
 
+    // user가 gift 목록보기
+
+    // user가 gift 검색하기
 }

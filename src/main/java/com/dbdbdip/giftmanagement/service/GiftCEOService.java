@@ -18,8 +18,8 @@ public class GiftCEOService {
     private final GiftRepository giftRepository;
 
     @Transactional
-    public List<GiftDTO> getGiftList(){
-        List<Gift> giftList = giftRepository.findAll();
+    public List<GiftDTO> getGiftList(Users users){
+        List<Gift> giftList = giftRepository.findByUserId(users);
         List<GiftDTO> list = new ArrayList<>();
 
         for(Gift g : giftList) {

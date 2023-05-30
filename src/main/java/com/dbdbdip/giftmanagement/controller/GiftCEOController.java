@@ -20,18 +20,17 @@ import java.util.List;
 public class GiftCEOController {
 
     private final GiftCEOService giftCEOService;
-    @GetMapping()
-    public String getGift(){
-        return "gift/gift";
-    }
 
+    // ceo가 자신의 gift 보기
     @GetMapping("/list")
-    public String getGiftList(Model model){
-        List<GiftDTO> giftList = giftCEOService.getGiftList();
+    public String getGiftList(Model model, HttpSession session){
+        List<GiftDTO> giftList = giftCEOService.getGiftList((Users) session.getAttribute("Users"));
         model.addAttribute("giftList", giftList);
-        return "gift/giftList";
+        return "gift/giftCEOList";
     }
 
+
+    // ceo가 자신의 gift 추가
     @GetMapping("/new")
     public String getNewGift(){
         return "gift/createGift.html";
@@ -42,4 +41,10 @@ public class GiftCEOController {
         giftCEOService.createNewGift(giftDTO, (Users) session.getAttribute("Users"));
         return "gift/gift";
     }
+
+    // ceo가 자신의 gift 수정
+
+    // ceo가 자신의 gift 삭제
+
+    // ceo가 자신의 gift 검색
 }
