@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GiftResponse {
+public class GiftDTO {
     private String name;
     private int price;
     private String sales_link;

@@ -6,17 +6,17 @@
 </head>
 <body>
 <div class="container">
-    <form action="/books/new" method="post">
+    <form action="/giftceo/new" method="post">
         <div class="form-group">
-            <h1><a href="/">도서 관리 시스템</a> </h1>
+            <h1><a href="/">선물 관리 시스템</a> </h1>
             <p><label for="name">제목</label>
                 <input type="text" id="name" name="name" placeholder="제목을 입력하세요">
             </p>
-            <p><label for="publisher">저자</label>
-                <input type="text" id="publisher" name="publisher" placeholder="저자를 입력하세요">
-            </p>
             <p><label for="price">가격</label>
                 <input type="text" id="price" name="price" placeholder="가격을 입력하세요">
+            </p>
+            <p><label for="salesLink">링크</label>
+                <input type="text" id="salesLink" name="salesLink" placeholder="링크를 입력하세요">
             </p>
         </div>
         <button type="submit">등록</button>

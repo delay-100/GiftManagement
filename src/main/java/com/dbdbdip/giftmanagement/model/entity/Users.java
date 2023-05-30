@@ -2,6 +2,9 @@ package com.dbdbdip.giftmanagement.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -11,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Users {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private String userId;
 
     private String password;
 
@@ -20,6 +23,9 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private Role userRole;    //User , CEO, Admin
 
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdDt;
 
 
 }
