@@ -1,10 +1,12 @@
 package com.dbdbdip.giftmanagement.model.dto;
 
+import com.dbdbdip.giftmanagement.model.entity.Role;
+
 public class UsersForm {
     private String id;
     private String password;
     private String nickname;
-    private String userRole;
+    private Role userRole;
 
     public String getId() {
         return id;
@@ -30,11 +32,11 @@ public class UsersForm {
         this.nickname = nickname;
     }
 
-    public String getUserRole() {
+    public Role getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserRole(Role userRole) {
         this.userRole = userRole;
     }
 }
