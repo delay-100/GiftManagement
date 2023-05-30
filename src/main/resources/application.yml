@@ -5,7 +5,7 @@ port: 8082
 spring:
 datasource:
 driver-class-name: org.mariadb.jdbc.Driver
-url: jdbc:mariadb://localhost:3307/giftManagement
+url: jdbc:mariadb://localhost:3307/giftmanagement
 username: root
 password: system
 jpa:
