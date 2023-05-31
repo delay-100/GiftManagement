@@ -6,17 +6,22 @@ import com.dbdbdip.giftmanagement.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class UsersService {
-    private UsersRepository usersRepository;
-    public String join(Users users) {
+    private final UsersRepository usersRepository;
+    public void join(UsersForm usersForm) {
         System.out.println("******** 회원가입 서비스 ********");
-        System.out.println("usersID: " + users.getUserId());
-        System.out.println("usersPassword: " + users.getPassword());
-        System.out.println("usersNickname: " + users.getNickname());
-        System.out.println("userRole: " + users.getUserRole());
-        usersRepository.save(users);
-        return users.getUserId();
+        usersRepository.existsById(usersForm.getUserId());
+        Users u = Users.builder()
+                .userId(usersForm.getUserId())
+                .password(usersForm.getPassword())
+                .nickname(usersForm.getNickname())
+                .userRole(usersForm.getUserRole())
+                .build();
+
+        usersRepository.save(u);
     }
 }
