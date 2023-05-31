@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Users {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private String userId;
 
     private String password;
@@ -25,7 +25,7 @@ public class Users {
 
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime createdDt;
-
+    private LocalDateTime createdAt;
 
 }
+
