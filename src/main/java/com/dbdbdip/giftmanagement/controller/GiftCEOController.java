@@ -24,7 +24,7 @@ public class GiftCEOController {
     // ceo가 자신의 gift 보기
     @GetMapping("/list")
     public String getGiftList(Model model, HttpSession session){
-        List<GiftDTO> giftList = giftCEOService.getGiftList((Users) session.getAttribute("Users"));
+        List<GiftDTO> giftList = giftCEOService.getGiftList((String) session.getAttribute("UsersId"));
         model.addAttribute("giftList", giftList);
         return "gift/giftCEOList";
     }
@@ -33,7 +33,7 @@ public class GiftCEOController {
     // ceo가 자신의 gift 추가
     @GetMapping("/new")
     public String getNewGift(){
-        return "gift/createGift.html";
+        return "giftCEO/createGift.html";
     }
 
     @PostMapping("/new")

@@ -1,11 +1,14 @@
 package com.dbdbdip.giftmanagement.controller;
 
 import com.dbdbdip.giftmanagement.model.dto.GiftDTO;
+import com.dbdbdip.giftmanagement.model.dto.GiftPageDTO;
 import com.dbdbdip.giftmanagement.service.GiftService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,8 +23,8 @@ public class GiftController { // user, ceo 둘다 가능
     
     // user의 gift 화면
     @GetMapping()
-    public String getGift(){
-        return "gift/gift";
+    public String getGiftMain(){
+        return "gift/giftMain";
     }
 
     // user가 전체 gift 리스트 보기
@@ -46,6 +49,18 @@ public class GiftController { // user, ceo 둘다 가능
         return "gift/search/searchList";
     }
 
-    // user가 gift 찜하기
+    @GetMapping("/{giftId}")
+    public String getGift(@PathVariable("giftId") Long giftId, HttpSession httpSession, Model model){
+        GiftPageDTO giftPageDTO = giftService.getGift(giftId, (String) httpSession.getAttribute("UsersId"));
+        model.addAttribute("gift",giftPageDTO);
+        return "gift/gift";
+    }
 
+    // user가 gift 찜하기
+    @PostMapping("/likes/{giftId}")
+    public String likeGift(@PathVariable("giftId") Long giftId, HttpSession httpSession, Model model){
+        GiftPageDTO giftPageDTO = giftService.likeGift(giftId, (String) httpSession.getAttribute("UsersId"));
+        model.addAttribute("giftPageDTO",giftPageDTO);
+        return "gift/gift";
+    }
 }

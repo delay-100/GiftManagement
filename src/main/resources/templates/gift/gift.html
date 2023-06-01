@@ -1,23 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>Home</title>
+    <meta charset="UTF-8">
+    <title>도서</title>
 </head>
 <body>
 <div class="container">
-  <div>
-    <h1><a href="/">선물 정보 관리 시스템 </a> </h1>
-    <p>
-      <button onclick="location.href='/gift/list'">선물목록</button >
-    </p>
-<!--    <p>-->
-<!--      <button onclick="location.href='/giftceo/new'">선물추가</button >-->
-<!--    </p>-->
-    <p>
-      <button onclick="location.href='/gift/search'">선물검색</button >
-    </p>
-  </div>
+    <div>
+        <h1><a href="/">도서 관리 시스템</a> </h1>
+        <table border ="1" width="50%" height=200 bordercolor="black">
+            <thead>
+            <tr>
+                <th colspan="4">도서</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>id</td>
+                <td>name</td>
+                <td>category</td>
+                <td>link</td>
+                <td>price</td>
+                <td>likes</td>
+
+            </tr>
+            <tr>
+                <td th:text="${gift.id}"></td>
+                <td th:text="${gift.name}"></td>
+                <td th:text="${gift.category}"></td>
+                <td th:text="${gift.sales_link}"></td>
+                <td th:text="${gift.likes}"></td>
+<!--                <td><a th:href="@{/gift/{id}/update(id = ${book.id})}">수정</a></td>-->
+<!--                <td><a th:href="@{/gift/{id}/delete(id = ${book.id})}">삭제</a></td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div> <!-- /container -->
 </body>
 </html>

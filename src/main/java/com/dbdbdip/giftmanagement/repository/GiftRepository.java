@@ -12,9 +12,13 @@ import java.util.Optional;
 
 @Repository
 public interface GiftRepository extends JpaRepository<Gift, Long> {
-    Optional<Gift> findById(Long postId);
+    Optional<Gift> findById(Long giftId);
 
-    List<Gift> findByUserId(Users userId);
+
+    @Query("SELECT g FROM Gift g WHERE g.giftId = :giftId")
+    Gift findByGiftId(@Param("giftId") Long giftId);
+
+    List<Gift> findByUserId(String userId);
 
     @Override
     List<Gift> findAll();
