@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Users {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private String userId;
 
     private String password;
@@ -28,3 +28,4 @@ public class Users {
     private LocalDateTime createdAt;
 
 }
+
