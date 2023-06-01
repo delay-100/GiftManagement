@@ -32,8 +32,19 @@ public class GiftController { // user, ceo 둘다 가능
         return "gift/giftList";
     }
 
-    // user가 gift 검색하기
+    // search 구현
+    @GetMapping("/search")
+    public String searchAllForm() {
+        return "gift/search/searchForm";
+    }
 
+    // user가 gift 검색하기
+    @PostMapping("/search")
+    public String searchAllGift(GiftDTO giftDTO, Model model) {
+        List<GiftDTO> giftlist = giftService.searchAllGift(giftDTO);
+        model.addAttribute("giftList",giftlist);
+        return "gift/search/searchList";
+    }
 
     // user가 gift 찜하기
 

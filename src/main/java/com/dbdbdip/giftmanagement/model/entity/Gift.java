@@ -15,8 +15,10 @@ import java.time.LocalDateTime;
 public class Gift {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postId;
+    @Column(name="gift_id")
+    private Long giftId;
     private String name;
+    private String category;
     private int price;
     private String salesLink;
 

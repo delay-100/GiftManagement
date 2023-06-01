@@ -13,6 +13,7 @@ public class GiftRequest {
     private String giftId;
 
     private String name;
+    private String category;
     private int price;
     private String salesLink;
 

@@ -11,5 +11,6 @@ import lombok.*;
 public class GiftDTO {
     private String name;
     private int price;
+    private String category;
     private String sales_link;
 }

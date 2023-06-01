@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Users {
     @Id
+    @Column(name="user_id")
     private String userId;
 
     private String password;
