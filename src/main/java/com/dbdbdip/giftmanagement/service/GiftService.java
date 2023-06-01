@@ -63,7 +63,7 @@ public class GiftService {
     public GiftPageDTO getGift(Long giftId, String users){
         Users user = usersRepository.FindByUsersIdToString(users);
         Gift gift = giftRepository.findByGiftId(giftId);
-        Likes likes = likesRepository.findByGiftIdAndUserId(giftId,users);
+        Likes likes = likesRepository.findByGiftIdAndUserId(gift,user);
 
 //        if(users.isEmpty()||gift.isEmpty()){
 //            return

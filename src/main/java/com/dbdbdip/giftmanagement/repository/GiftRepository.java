@@ -18,7 +18,10 @@ public interface GiftRepository extends JpaRepository<Gift, Long> {
     @Query("SELECT g FROM Gift g WHERE g.giftId = :giftId")
     Gift findByGiftId(@Param("giftId") Long giftId);
 
-    List<Gift> findByUserId(String userId);
+//    List<Gift> findByUserIdString(String userId);
+
+//    List<Gift> findByUserId(Users userId);
+
 
     @Override
     List<Gift> findAll();

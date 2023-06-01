@@ -16,7 +16,7 @@ public class Likes {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @Column(name = "likes_id")
+    @Column(name = "like_id")
     private Long likesId;
 
     @ManyToOne(fetch = FetchType.LAZY)

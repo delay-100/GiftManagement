@@ -60,7 +60,7 @@ public class GiftController { // user, ceo 둘다 가능
     @PostMapping("/likes/{giftId}")
     public String likeGift(@PathVariable("giftId") Long giftId, HttpSession httpSession, Model model){
         GiftPageDTO giftPageDTO = giftService.likeGift(giftId, (String) httpSession.getAttribute("UsersId"));
-        model.addAttribute("giftPageDTO",giftPageDTO);
+        model.addAttribute("gift",giftPageDTO);
         return "gift/gift";
     }
 }
