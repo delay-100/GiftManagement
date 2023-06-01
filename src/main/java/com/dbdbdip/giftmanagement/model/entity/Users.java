@@ -25,7 +25,6 @@ public class Users {
 
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime createdDt;
-
+    private LocalDateTime createdAt;
 
 }

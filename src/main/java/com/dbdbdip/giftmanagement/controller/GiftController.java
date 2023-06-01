@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/gift")
 @RequiredArgsConstructor
-public class GiftController {
+public class GiftController { // user, ceo 둘다 가능
 
     private final GiftService giftService;
     
@@ -32,7 +32,9 @@ public class GiftController {
         return "gift/giftList";
     }
 
-    // user가 gift 목록보기
-
     // user가 gift 검색하기
+
+
+    // user가 gift 찜하기
+
 }
