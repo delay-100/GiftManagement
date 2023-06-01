@@ -14,7 +14,6 @@ public class UsersService {
     private final UsersRepository usersRepository;
     public void join(UsersForm usersForm) {
         System.out.println("******** 회원가입 서비스 ********");
-        usersRepository.existsById(usersForm.getUserId());
         Users u = Users.builder()
                 .userId(usersForm.getUserId())
                 .password(usersForm.getPassword())
