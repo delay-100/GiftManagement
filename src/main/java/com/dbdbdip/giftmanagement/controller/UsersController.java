@@ -4,6 +4,7 @@ package com.dbdbdip.giftmanagement.controller;
 import com.dbdbdip.giftmanagement.model.dto.Message;
 import com.dbdbdip.giftmanagement.model.dto.UsersForm;
 import com.dbdbdip.giftmanagement.service.UsersService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,6 @@ public class UsersController {
 
     @PostMapping("/signup")
     public ModelAndView createSignup(UsersForm usersForm, ModelAndView mav) {
-        System.out.println("******** 회원가입 폼 시작 ********");
         if (usersForm.getUserId().length() == 0) {
             mav.addObject("data", new Message("ID를 입력해주세요.", "signup"));
             mav.setViewName("/common/message");
@@ -59,10 +59,8 @@ public class UsersController {
     }
 
     @PostMapping("/login")
-    public ModelAndView createLogin(UsersForm usersForm, ModelAndView mav, HttpSession httpSession) {
-        System.out.println("******** 로그인 폼 시작 ********");
-        System.out.println(usersForm.getUserId() + " " + usersForm.getPassword());
-        boolean isSuccess = usersService.login(usersForm, httpSession);
+    public ModelAndView createLogin(UsersForm usersForm, ModelAndView mav, HttpServletRequest request) {
+        boolean isSuccess = usersService.login(usersForm, request);
         if (isSuccess) {
             mav.addObject("data", new Message("로그인 성공.", "../gift"));
             mav.setViewName("/common/message");
@@ -73,4 +71,29 @@ public class UsersController {
         }
         return mav;
     }
+
+    // 로그아웃
+    @GetMapping("/logout")
+    public String logoutGet() {
+        return "home";
+    }
+    @PostMapping("/logout")
+    public ModelAndView logoutPost(ModelAndView mav, HttpServletRequest request) {
+        if (usersService.logout(request)) {
+            mav.addObject("data", new Message("로그아웃 성공.", "../"));
+            mav.setViewName("/common/message");
+        }
+        else {
+            mav.addObject("data", new Message("로그아웃 실패.", "../gift"));
+            mav.setViewName("/common/message");
+        }
+
+        return mav;
+    }
+
+    // 탈퇴
+
+    // 비밀번호 변경
+
+    // 닉네임 변경
 }

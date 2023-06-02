@@ -3,6 +3,7 @@ package com.dbdbdip.giftmanagement.service;
 import com.dbdbdip.giftmanagement.model.dto.UsersForm;
 import com.dbdbdip.giftmanagement.model.entity.Users;
 import com.dbdbdip.giftmanagement.repository.UsersRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class UsersService {
     private final UsersRepository usersRepository;
     public void join(UsersForm usersForm) {
-        System.out.println("******** 회원가입 서비스 ********");
         Users u = Users.builder()
                 .userId(usersForm.getUserId())
                 .password(usersForm.getPassword())
@@ -23,9 +23,8 @@ public class UsersService {
         usersRepository.save(u);
     }
 
-    public boolean login(UsersForm usersForm, HttpSession httpSession) {
-        System.out.println("******** 로그인 서비스 ********");
-
+    public boolean login(UsersForm usersForm, HttpServletRequest request) {
+        HttpSession httpSession = request.getSession();
         if (usersForm.getUserId().length() == 0 || usersForm.getPassword().length() == 0) {
             // 아이디를 입력하지 않았거나 비밀번호를 입력하지 않은 경우
             return false;
@@ -44,5 +43,15 @@ public class UsersService {
 
             return true;
         }
+    }
+
+    public boolean logout(HttpServletRequest request) {
+        HttpSession httpSession = request.getSession(false);
+        if (httpSession != null) {
+            httpSession.invalidate();
+            return true;
+        }
+        else
+            return true;
     }
 }
