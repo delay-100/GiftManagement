@@ -45,13 +45,13 @@ public class GiftCEOController {
         return "redirect:/giftceo/list";
     }
 
-    // search 구현
+
+    // ceo가 자신의 gift 검색하기
     @GetMapping("/search")
     public String searchForm() {
         return "giftCEO/search/searchForm";
     }
 
-    // ceo가 자신의 gift 검색하기
     @PostMapping("/search")
     public String searchMyGift(GiftDTO giftDTO, Model model, HttpSession session) {
         List<GiftDTO> giftlist = giftCEOService.searchMyGift(giftDTO, (String) session.getAttribute("UsersId"));
@@ -67,8 +67,25 @@ public class GiftCEOController {
     }
 
     // ceo가 자신의 gift 수정
+    @GetMapping("/update/{giftId}")
+    public String getUpdateGift(@PathVariable("giftId") Long giftId, HttpSession httpSession,Model model){
+        GiftDTO giftDTO = giftCEOService.getUpdateGift(giftId, (String) httpSession.getAttribute("UsersId"));
+        model.addAttribute("gift",giftDTO);
+        return "giftCEO/giftCEOUpdate";
+    }
+
+    @PostMapping("/update/{giftId}")
+    public String updateGift(@PathVariable("giftId") Long giftId, @ModelAttribute GiftDTO giftDTO, HttpSession session, Model model){
+        GiftDTO giftdto = giftCEOService.updateBoard(giftId, giftDTO, (String) session.getAttribute("UsersId"));
+        model.addAttribute("gift",giftDTO);
+        return "redirect:/giftceo/" + giftId;
+    }
 
     // ceo가 자신의 gift 삭제
-
-    // ceo가 자신의 gift 검색
+//    @PostMapping("/delete/{giftId}")
+//    public String updateGift(@PathVariable("giftId") Long giftId, @ModelAttribute GiftDTO giftDTO, HttpSession session, Model model){
+//        GiftDTO giftdto = giftCEOService.updateBoard(giftId, giftDTO, (String) session.getAttribute("UsersId"));
+//        model.addAttribute("gift",giftDTO);
+//        return "redirect:/giftceo/" + giftId;
+//    }
 }
