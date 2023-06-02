@@ -83,7 +83,7 @@
         <tbody>
         <tr th:each="gift : ${giftList}">
             <td th:text="${gift.giftId}"></td>
-            <td><a th:href="@{/giftceo/{id}(id=${gift.giftId})}" th:text="${gift.name}"></a></td>
+            <td><a th:href="@{/gift/{id}(id=${gift.giftId})}" th:text="${gift.name}"></a></td>
             <td th:text="${gift.category}"></td>
             <td th:text="${gift.price}"></td>
             <td><a th:href="${gift.sales_link}" th:text="${gift.sales_link}"></a></td>

@@ -31,7 +31,7 @@
                 </td>
                 <td th:text="${gift.category}"></td>
                 <td th:text="${gift.price}"></td>
-                <td th:text="${gift.sales_link}"></td>
+                <td><a th:href="${gift.sales_link}" th:text="${gift.sales_link}"></a></td>
             </tr>
             </tbody>
         </table>
