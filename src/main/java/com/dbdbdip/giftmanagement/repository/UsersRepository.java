@@ -19,14 +19,14 @@ public interface UsersRepository extends JpaRepository<Users, String> {
     @Query("SELECT u FROM Users u WHERE u.userId = :id")
     Users findByNickname(@Param("id") String id);
 
-    @Transactional
     @Modifying
     @Query("UPDATE Users u SET u.nickname = :nickname WHERE u.userId = :userId")
     void updateNickname(@Param("userId") String userId, @Param("nickname") String nickname);
 
-    @Transactional
     @Modifying
     @Query("UPDATE Users u SET u.password = :password WHERE u.userId = :userId")
     void updatePassword(@Param("userId") String userId, @Param("password") String password);
 
+
+    Users findByUserId(String userId);
 }

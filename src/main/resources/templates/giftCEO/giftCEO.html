@@ -21,7 +21,6 @@
         <td>category</td>
         <td>link</td>
         <td>price</td>
-        <td>likes</td>
         <td>수정</td>
         <td>삭제</td>
       </tr>
@@ -31,18 +30,12 @@
         <td th:text="${gift.category}"></td>
         <td th:text="${gift.sales_link}"></td>
         <td th:text="${gift.price}"></td>
-        <td th:text="${gift.likes}"></td>
         <td><a th:href="@{/giftceo/update/{id}(id = ${gift.giftId})}">수정</a></td>
         <td><a th:href="@{/giftceo/delete/{id}(id = ${gift.giftId})}">삭제</a></td>
-      </tr>
-      <tr>
-        <form th:action="@{/gift/likes/{id}(id=${gift.giftId})}" method="post">
-          <button type="submit">좋아요 버튼</button>
-        </form>
       </tr>
       </tbody>
     </table>
   </div>
-</div> <!-- /container -->
+</div>
 </body>
 </html>

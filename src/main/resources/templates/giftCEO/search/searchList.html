@@ -11,7 +11,7 @@
         <table border ="1" width="50%" height=200 bordercolor="black">
             <thead>
             <tr>
-                <th colspan="4">선물 목록</th>
+                <th colspan="5">선물 목록</th>
             </tr>
             </thead>
             <tbody>
@@ -26,7 +26,9 @@
 
             <tr th:each="gift : ${giftList}">
                 <td th:text="${gift.giftId}"></td>
-                <td th:text="${gift.name}"></td>
+                <td>
+                    <a th:href="@{/gift/{id}(id=${gift.giftId})}" th:text="${gift.name}"></a>
+                </td>
                 <td th:text="${gift.category}"></td>
                 <td th:text="${gift.price}"></td>
                 <td th:text="${gift.sales_link}"></td>

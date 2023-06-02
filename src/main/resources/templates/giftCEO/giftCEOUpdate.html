@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+<!--    <form id="updateForm" method="post" action="/giftceo/update/${gift.giftId}">-->
+        <form method="post" th:action="@{/giftceo/update/{id}(id=${gift.giftId})}">
+            <div class="form-group">
+            <h1><a href="/">선물 관리 시스템</a> </h1>
+            <p>
+                <label for="name">제목</label>
+                <input id="name" name="name" placeholder="제목을 입력하세요" th:value="${gift.name}">
+            </p>
+            <p>
+                <label for="category">카테고리</label>
+                <input id="category" name="category" placeholder="카테고리를 입력하세요" th:value="${gift.category}">
+            </p>
+            <p>
+                <label for="price">가격</label>
+                <input id="price" name="price" placeholder="가격을 입력하세요" th:value="${gift.price}">
+            </p>
+            <p>
+                <label for="sales_link">링크</label>
+                <input id="sales_link" name="sales_link" placeholder="링크를 입력하세요" th:value="${gift.sales_link}">
+            </p>
+        </div>
+        <button type="submit">수정</button>
+    </form>
+
+</div> <!-- /container -->
+
+</body>
+</html>
