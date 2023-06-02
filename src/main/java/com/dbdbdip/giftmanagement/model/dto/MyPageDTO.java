@@ -1,6 +1,5 @@
 package com.dbdbdip.giftmanagement.model.dto;
 
-import com.dbdbdip.giftmanagement.model.entity.Role;
 import lombok.*;
 
 @Data
@@ -10,8 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyPageDTO {
-    private String userId;
-    private String password;
     private String nickname;
-    private Role userRole;
+    private String currentPassword;
+    private String newPassword;
 }

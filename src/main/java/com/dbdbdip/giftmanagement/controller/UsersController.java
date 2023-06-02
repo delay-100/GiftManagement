@@ -2,6 +2,7 @@ package com.dbdbdip.giftmanagement.controller;
 
 
 import com.dbdbdip.giftmanagement.model.dto.Message;
+import com.dbdbdip.giftmanagement.model.dto.MyPageDTO;
 import com.dbdbdip.giftmanagement.model.dto.UsersForm;
 import com.dbdbdip.giftmanagement.service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -96,13 +97,30 @@ public class UsersController {
     public String leaveGet() { return "users/leaveUsersForm"; }
 
     @DeleteMapping("/leave")
-    public ModelAndView leavePost(UsersForm usersForm, ModelAndView mav, HttpSession httpSession) {
+    public ModelAndView leaveDelete(UsersForm usersForm, ModelAndView mav, HttpSession httpSession) {
         if (usersService.leave(usersForm, httpSession)){
             mav.addObject("data", new Message("탈퇴가 완료되었습니다.", "../"));
             mav.setViewName("/common/message");
         }
         else {
-            mav.addObject("data", new Message("비밀번호가 올바르지 않습니다.", "redirect:/auth/leave"));
+            mav.addObject("data", new Message("비밀번호가 올바르지 않습니다.", "/auth/leave"));
+            mav.setViewName("/common/message");
+        }
+
+        return mav;
+    }
+
+    // 닉네임 변경
+    @PatchMapping("/nicknameUpdate")
+    public ModelAndView nicknameUpdate(MyPageDTO myPageDTO, HttpSession httpSession, ModelAndView mav) {
+        // 현재 닉네임과 같으면 false
+        // 성공적으로 변경되면 true
+        if (usersService.nicknameUpdate(myPageDTO, httpSession)) {
+            mav.addObject("data", new Message("닉네임이 변경되었습니다.", "/mypage"));
+            mav.setViewName("/common/message");
+        }
+        else {
+            mav.addObject("data", new Message("현재 닉네임과 똑같습니다.", "/mypage"));
             mav.setViewName("/common/message");
         }
 
@@ -110,6 +128,27 @@ public class UsersController {
     }
 
     // 비밀번호 변경
+    @PatchMapping("/passwordUpdate")
+    public ModelAndView passwordUpdate(MyPageDTO myPageDTO, HttpSession httpSession, ModelAndView mav) {
 
-    // 닉네임 변경
+        switch (usersService.passwordUpdate(myPageDTO, httpSession)) {
+            case 1 :
+                // 현재 비밀번호가 올바르지 않으면 1 X
+                mav.addObject("data", new Message("현재 비밀번호가 올바르지 않습니다.", "/mypage"));
+                mav.setViewName("/common/message");
+                break;
+            case 2 :
+                // 현재 비밀번호와 새 비밀번호가 일치하면 2 O
+                mav.addObject("data", new Message("현재 비밀번호와 새 비밀번호가 일치합니다.", "/mypage"));
+                mav.setViewName("/common/message");
+                break;
+            case 3 :
+                // 현재 비밀번호가 일치하면 3 X
+                mav.addObject("data", new Message("비밀번호가 변경되었습니다.", "/mypage"));
+                mav.setViewName("/common/message");
+                break;
+        }
+
+        return mav;
+    }
 }

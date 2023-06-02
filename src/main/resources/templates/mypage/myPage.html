@@ -11,10 +11,29 @@
     <a href="/giftceo" class="btn">CEO 페이지로 이동</a>
     <a th:text="${userNickname} + ' 님의 마이페이지 입니다.'"></a>
     <div>
-       <p>찜 목록</p>
+       <h3>찜 목록</h3>
     </div>
     <div>
-        <p>개인정보 수정</p>
+        <h3>개인정보 수정</h3>
+        <form action="/auth/nicknameUpdate" method="post">
+            <input type="hidden" name="_method" value="patch">
+            <div class="form-group">
+                <p>닉네임 변경</p>
+                <input type="text" id="nickname" name="nickname" placeholder="변경할 닉네임을 입력해주세요">
+                <button type="submit" class="btn">변경</button>
+            </div>
+        </form>
+        <form action="/auth/passwordUpdate" method="post">
+            <input type="hidden" name="_method" value="patch">
+            <div class="form-group">
+                <p>비밀번호 변경</p>
+                <input type="text" id="currentPassword" name="currentPassword" placeholder="현재 비밀번호를 입력해주세요"><br>
+                <input type="text" id="newPassword" name="newPassword" placeholder="새로운 비밀번호를 입력해주세요">
+                <button type="submit" class="btn">변경</button>
+            </div>
+        </form>
+
+
     </div>
     <a href="/auth/leave">탈퇴</a>
 </div>

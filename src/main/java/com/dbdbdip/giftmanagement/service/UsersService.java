@@ -1,13 +1,11 @@
 package com.dbdbdip.giftmanagement.service;
 
+import com.dbdbdip.giftmanagement.model.dto.MyPageDTO;
 import com.dbdbdip.giftmanagement.model.dto.UsersForm;
-import com.dbdbdip.giftmanagement.model.entity.Gift;
-import com.dbdbdip.giftmanagement.model.entity.Likes;
 import com.dbdbdip.giftmanagement.model.entity.Users;
 import com.dbdbdip.giftmanagement.repository.GiftRepository;
 import com.dbdbdip.giftmanagement.repository.LikesRepository;
 import com.dbdbdip.giftmanagement.repository.UsersRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -67,5 +65,39 @@ public class UsersService {
 
         usersRepository.deleteById(u.getUserId());
         return true;
+    }
+
+    public boolean nicknameUpdate(MyPageDTO myPageDTO, HttpSession httpSession) {
+        Users u = usersRepository.findByNickname((String) httpSession.getAttribute("UsersId"));
+        if (u.getNickname().equals(myPageDTO.getNickname())) {
+            // 현재 닉네임과 같으면 false
+            return false;
+        }
+
+        // 성공적으로 변경되면 true
+        usersRepository.updateNickname(u.getUserId(), myPageDTO.getNickname());
+        return true;
+    }
+
+    public int passwordUpdate(MyPageDTO myPageDTO, HttpSession httpSession) {
+        String currentPassword = (String) httpSession.getAttribute("UsersPassword");
+        String newPassword = myPageDTO.getNewPassword();
+
+        if (myPageDTO.getCurrentPassword().compareTo(currentPassword) != 0) {
+            // 현재 비밀번호가 올바르지 않으면 1
+            return 1;
+        }
+        else if (newPassword.compareTo(currentPassword) == 0) {
+            // 현재 비밀번호와 새 비밀번호가 일치하면 2
+            return 2;
+        }
+
+        // 현재 비밀번호가 일치하면 3
+        // 새 비밀번호로 변경, httpsession 변경
+        usersRepository.updatePassword((String) httpSession.getAttribute("UsersId"), myPageDTO.getNewPassword());
+        httpSession.removeAttribute("UsersPassword");
+        httpSession.setAttribute("UsersPassword", newPassword);
+
+        return 3;
     }
 }
