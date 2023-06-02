@@ -59,8 +59,8 @@ public class UsersController {
     }
 
     @PostMapping("/login")
-    public ModelAndView createLogin(UsersForm usersForm, ModelAndView mav, HttpServletRequest request) {
-        boolean isSuccess = usersService.login(usersForm, request);
+    public ModelAndView createLogin(UsersForm usersForm, ModelAndView mav, HttpSession httpSession) {
+        boolean isSuccess = usersService.login(usersForm, httpSession);
         if (isSuccess) {
             mav.addObject("data", new Message("로그인 성공.", "../gift"));
             mav.setViewName("/common/message");
@@ -78,8 +78,8 @@ public class UsersController {
         return "home";
     }
     @PostMapping("/logout")
-    public ModelAndView logoutPost(ModelAndView mav, HttpServletRequest request) {
-        if (usersService.logout(request)) {
+    public ModelAndView logoutPost(ModelAndView mav, HttpSession httpSession) {
+        if (usersService.logout(httpSession)) {
             mav.addObject("data", new Message("로그아웃 성공.", "../"));
             mav.setViewName("/common/message");
         }
@@ -92,6 +92,22 @@ public class UsersController {
     }
 
     // 탈퇴
+    @GetMapping("/leave")
+    public String leaveGet() { return "users/leaveUsersForm"; }
+
+    @DeleteMapping("/leave")
+    public ModelAndView leavePost(UsersForm usersForm, ModelAndView mav, HttpSession httpSession) {
+        if (usersService.leave(usersForm, httpSession)){
+            mav.addObject("data", new Message("탈퇴가 완료되었습니다.", "../"));
+            mav.setViewName("/common/message");
+        }
+        else {
+            mav.addObject("data", new Message("비밀번호가 올바르지 않습니다.", "redirect:/auth/leave"));
+            mav.setViewName("/common/message");
+        }
+
+        return mav;
+    }
 
     // 비밀번호 변경
 

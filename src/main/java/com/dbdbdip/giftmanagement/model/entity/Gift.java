@@ -26,7 +26,7 @@ public class Gift {
     @Column(updatable = false)
     private LocalDateTime createdDt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private Users userId;
 

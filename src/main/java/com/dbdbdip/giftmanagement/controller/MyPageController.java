@@ -1,7 +1,10 @@
 package com.dbdbdip.giftmanagement.controller;
 
+import com.dbdbdip.giftmanagement.service.MyPageService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/mypage")
 @RequiredArgsConstructor
 public class MyPageController {
+    private final MyPageService myPageService;
 
     @GetMapping()
-    public String getMypage() {
+    public String getMypage(Model model, HttpSession httpSession) {
+        model.addAttribute("userNickname", myPageService.getNickname(httpSession));
         return "mypage/myPage";
     }
 }

@@ -1,7 +1,11 @@
 package com.dbdbdip.giftmanagement.service;
 
 import com.dbdbdip.giftmanagement.model.dto.UsersForm;
+import com.dbdbdip.giftmanagement.model.entity.Gift;
+import com.dbdbdip.giftmanagement.model.entity.Likes;
 import com.dbdbdip.giftmanagement.model.entity.Users;
+import com.dbdbdip.giftmanagement.repository.GiftRepository;
+import com.dbdbdip.giftmanagement.repository.LikesRepository;
 import com.dbdbdip.giftmanagement.repository.UsersRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -12,6 +16,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UsersService {
     private final UsersRepository usersRepository;
+    private final LikesRepository likesRepository;
+    private final GiftRepository giftRepository;
     public void join(UsersForm usersForm) {
         Users u = Users.builder()
                 .userId(usersForm.getUserId())
@@ -23,8 +29,7 @@ public class UsersService {
         usersRepository.save(u);
     }
 
-    public boolean login(UsersForm usersForm, HttpServletRequest request) {
-        HttpSession httpSession = request.getSession();
+    public boolean login(UsersForm usersForm, HttpSession httpSession) {
         if (usersForm.getUserId().length() == 0 || usersForm.getPassword().length() == 0) {
             // 아이디를 입력하지 않았거나 비밀번호를 입력하지 않은 경우
             return false;
@@ -45,13 +50,22 @@ public class UsersService {
         }
     }
 
-    public boolean logout(HttpServletRequest request) {
-        HttpSession httpSession = request.getSession(false);
-        if (httpSession != null) {
+    public boolean logout(HttpSession httpSession) {
+        if (httpSession != null)
             httpSession.invalidate();
-            return true;
+
+        return true;
+    }
+
+    public boolean leave(UsersForm usersForm, HttpSession httpSession) {
+        Users u = new Users();
+        u.setUserId((String) httpSession.getAttribute("UsersId"));
+        if(usersRepository.findByIdAndPassword(usersForm.getPassword(), u.getUserId()).isEmpty()) {
+            // 지금 로그인된 아이디랑 입력된 비밀번호가 같지 않으면
+            return false;
         }
-        else
-            return true;
+
+        usersRepository.deleteById(u.getUserId());
+        return true;
     }
 }
