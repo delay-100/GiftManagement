@@ -1,49 +1,111 @@
-//package com.dbdbdip.giftmanagement.service;
-//
-//import com.dbdbdip.giftmanagement.model.dto.GiftDTO;
-//import com.dbdbdip.giftmanagement.model.entity.Gift;
-//import com.dbdbdip.giftmanagement.model.entity.Users;
-//import com.dbdbdip.giftmanagement.repository.GiftRepository;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Service
-//@RequiredArgsConstructor
-//public class GiftCEOService {
-//
-//    private final GiftRepository giftRepository;
-//
-//    @Transactional
-//    public List<GiftDTO> getGiftList(String usersId){
-//        List<Gift> giftList = giftRepository.findByUserIdString(usersId);
-//        List<GiftDTO> list = new ArrayList<>();
-//
-//        for(Gift g : giftList) {
-//            GiftDTO boardDto = GiftDTO.builder()
-//                    .name(g.getName())
-//                    .price(g.getPrice())
-//                    .sales_link(g.getSalesLink())
-//                    .build();
-//            list.add(boardDto);
+package com.dbdbdip.giftmanagement.service;
+
+import com.dbdbdip.giftmanagement.model.dto.GiftDTO;
+import com.dbdbdip.giftmanagement.model.dto.GiftPageDTO;
+import com.dbdbdip.giftmanagement.model.entity.Gift;
+import com.dbdbdip.giftmanagement.model.entity.Likes;
+import com.dbdbdip.giftmanagement.model.entity.Users;
+import com.dbdbdip.giftmanagement.repository.GiftRepository;
+import com.dbdbdip.giftmanagement.repository.LikesRepository;
+import com.dbdbdip.giftmanagement.repository.UsersRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class GiftCEOService {
+
+    private final GiftRepository giftRepository;
+    private final UsersRepository usersRepository;
+    private final LikesRepository likesRepository;
+
+    @Transactional
+    public List<GiftDTO> getGiftList(String usersId){
+        Users user = usersRepository.FindByUsersIdToString(usersId);
+        List<Gift> giftList = giftRepository.findByUserIdGiftList(user);
+        List<GiftDTO> list = new ArrayList<>();
+
+        for(Gift g : giftList) {
+            GiftDTO gift = GiftDTO.builder()
+                    .giftId(g.getGiftId())
+                    .name(g.getName())
+                    .category(g.getCategory())
+                    .price(g.getPrice())
+                    .sales_link(g.getSalesLink())
+                    .build();
+            list.add(gift);
+        }
+
+        return list;
+    }
+    @Transactional
+    public void createNewGift(GiftDTO giftDTO,String usersId) {
+        Users user = usersRepository.FindByUsersIdToString(usersId);
+
+        Gift gift = Gift.builder()
+                .name(giftDTO.getName())
+                .category(giftDTO.getCategory())
+                .price(giftDTO.getPrice())
+                .salesLink(giftDTO.getSales_link())
+                .userId(user)
+                .build();
+
+        giftRepository.save(gift);
+    }
+
+    // ceo가 자신의 gift 검색하기
+    @Transactional
+    public List<GiftDTO> searchMyGift(GiftDTO giftDTO, String usersId){
+        Users user = usersRepository.FindByUsersIdToString(usersId);
+        List<Gift> gRepo = giftRepository.findByUserIdGiftIdList(giftDTO.getName(),giftDTO.getCategory(),usersId);
+
+        List<GiftDTO> list  = new ArrayList<>();
+        for (Gift gift : gRepo){
+            GiftDTO gift2 = GiftDTO.builder()
+                    .giftId(gift.getGiftId())
+                    .name(gift.getName())
+                    .category(gift.getCategory())
+                    .price(gift.getPrice())
+                    .sales_link((gift.getSalesLink()))
+                    .build();
+            list.add(gift2);
+        }
+
+        return list;
+    }
+
+    public GiftPageDTO getGift(Long giftId, String users){
+        Users user = usersRepository.FindByUsersIdToString(users);
+        Gift gift = giftRepository.findByGiftId(giftId);
+        Likes likes = likesRepository.findByGiftIdAndUserId(gift,user);
+
+//        if(users.isEmpty()||gift.isEmpty()){
+//            return
+//        } else {
+
+        if(likes==null) {
+            return GiftPageDTO.builder()
+                    .giftId(gift.getGiftId())
+                    .name(gift.getName())
+                    .category(gift.getCategory())
+                    .sales_link(gift.getSalesLink())
+                    .price(gift.getPrice())
+                    .likes(false)
+                    .build();
+        }
+        return GiftPageDTO.builder()
+                .giftId(gift.getGiftId())
+                .name(gift.getName())
+                .category(gift.getCategory())
+                .sales_link(gift.getSalesLink())
+                .price(gift.getPrice())
+                .likes(true)
+                .build();
+
 //        }
-//
-//        return list;
-//    }
-//    @Transactional
-//    public void createNewGift(GiftDTO giftDTO, Users users ) {
-//        System.out.println(users);
-//
-//        Gift gift = Gift.builder()
-//                .name(giftDTO.getName()) // 외래 키 값을 가진 객체
-//                .price(giftDTO.getPrice()) // 외래 키의 닉네임 값
-//                .salesLink(giftDTO.getSales_link())
-//                .userId(users)
-//                .build();
-//
-//        giftRepository.save(gift);
-//    }
-//}
+    }
+}

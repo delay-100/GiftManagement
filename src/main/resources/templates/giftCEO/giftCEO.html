@@ -11,7 +11,7 @@
     <table border ="1" width="50%" height=200 bordercolor="black">
       <thead>
       <tr>
-        <th colspan="6">선물</th>
+        <th colspan="8">선물</th>
       </tr>
       </thead>
       <tbody>
@@ -22,6 +22,8 @@
         <td>link</td>
         <td>price</td>
         <td>likes</td>
+        <td>수정</td>
+        <td>삭제</td>
       </tr>
       <tr>
         <td th:text="${gift.giftId}"></td>
@@ -30,8 +32,8 @@
         <td th:text="${gift.sales_link}"></td>
         <td th:text="${gift.price}"></td>
         <td th:text="${gift.likes}"></td>
-        <!--                <td><a th:href="@{/gift/{id}/update(id = ${book.id})}">수정</a></td>-->
-        <!--                <td><a th:href="@{/gift/{id}/delete(id = ${book.id})}">삭제</a></td>-->
+        <td><a th:href="@{/giftceo/update/{id}(id = ${gift.giftId})}">수정</a></td>
+        <td><a th:href="@{/giftceo/delete/{id}(id = ${gift.giftId})}">삭제</a></td>
       </tr>
       <tr>
         <form th:action="@{/gift/likes/{id}(id=${gift.giftId})}" method="post">

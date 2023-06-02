@@ -17,4 +17,5 @@ public interface LikesRepository extends JpaRepository<Likes, Long> {
 
     @Query("SELECT l FROM Likes l WHERE l.giftId = :giftId and l.userId = :users")
     Likes findByGiftIdAndUserId(@Param("giftId") Gift giftId, @Param("users") Users users);
+
 }
