@@ -1,22 +1,92 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"><body>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SignUp</title>
+    <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUITE/fonts/static/woff2/SUITE.css" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'SUITE', sans-serif;
+        }
+        h1 {
+            padding: 5px 10px;
+            border-bottom: 1px solid #848484;
+            border-left: 8px solid #848484;
+        }
+        .header {
+            color: inherit;
+            text-decoration: none;
+        }
+        .title {
+            font-size: 35px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 60vh;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            width: 82%;
+        }
+        h4 {
+            margin-bottom: 6px;
+            margin-top: 5px;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            height: 40px;
+            border-radius: 30px;
+            padding: 0px 20px;
+            border: 1px solid lightgray;
+            outline: none;
+            display: inline-block;
+        }
+        input[type=radio] {
+            width: 15px;
+            margin-left: 60px;
+            margin-bottom: 10px;
+        }
+        .btn {
+            margin-top: 7px;
+            width: 100%;
+            height: 40px;
+            font-size: 17px;
+            border: 0;
+            outline: none;
+            border-radius: 40px;
+            background: black;
+            color: white;
+        }
+    </style>
+</head>
+<header>
+    <h1><a href="/" class="header">선물 정보 관리 시스템</a></h1>
+</header>
+<body>
 <div class="container">
+    <p class="title">회원가입</p>
     <form action="/auth/signup" method="post">
         <div class="form-group">
-            <label for="userId">ID</label>
-            <input type="text" id="userId" name="userId" placeholder="ID를 입력해주세요">
+            <h4>아이디</h4>
+            <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요">
         </div>
         <div class="form-group">
-            <label for="password">비밀번호</label>
-            <input type="text" id="password" name="password" placeholder="비밀번호를 입력해주세요">
+            <h4>비밀번호</h4>
+            <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요">
         </div>
         <div class="form-group">
-            <label for="nickname">별명</label>
+            <h4>별명</h4>
             <input type="text" id="nickname" name="nickname" placeholder="별명을 입력해주세요">
         </div>
         <input type="radio" name="userRole" value="USER">USER
         <input type="radio" name="userRole" value="CEO">CEO
-        <button type="submit">회원가입</button>
+        <button type="submit" class="btn">회원가입</button>
     </form>
 </div> <!-- /container -->
 </body>

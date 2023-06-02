@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUITE/fonts/static/woff2/SUITE.css" rel="stylesheet">
     <style>
+        * {
+            font-family: 'SUITE', sans-serif;
+        }
         h1 {
             padding: 5px 10px;
             border-bottom: 1px solid #848484;
@@ -14,8 +18,8 @@
             text-decoration: none;
         }
         .title {
-            font-size: 40px;
-            font-family: sans-serif;
+            font-size: 35px;
+            font-weight: 700;
             margin-bottom: 15px;
         }
         .container {
@@ -24,7 +28,7 @@
             display: flex;
             justify-content: center;
             flex-direction: column;
-            height: 47vh;
+            height: 50vh;
         }
         .form-group {
             margin-bottom: 15px;
@@ -47,6 +51,7 @@
             margin-top: 7px;
             width: 100%;
             height: 40px;
+            font-size: 17px;
             border: 0;
             outline: none;
             border-radius: 40px;
@@ -65,7 +70,7 @@
     <h1><a href="/" class="header">선물 정보 관리 시스템</a></h1>
 </header>
 <div class="container">
-    <p class="title">Log In</p>
+    <p class="title">로그인</p>
     <form action="/auth/login" method="post">
         <div class="form-group">
             <h4>아이디</h4>
@@ -73,7 +78,7 @@
         </div>
         <div class="form-group">
             <h4>비밀번호</h4>
-            <input type="text" id="password" name="password" placeholder="비밀번호를 입력해주세요">
+            <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요">
         </div>
         <button type="submit" class="btn">로그인</button></br>
         <a href="/auth/signup" class="sign" style="color: inherit">회원가입</a>
