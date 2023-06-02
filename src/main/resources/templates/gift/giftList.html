@@ -24,12 +24,13 @@
             </tr>
 
             <tr th:each="gift : ${giftList}">
-                <td th:text="${gift.name}"></td>
-                <td th:text="${gift.category}"></td>
-                <td th:text="${gift.price}"></td>
-                <td th:text="${gift.sales_link}"></td>
-<!--                <td><a th:href="@{/gift/update(id=${gift.gift_id})}">수정</a></td>-->
-<!--                <td><a th:href="@{/gift/delete(id=${gift.gift_id})}">삭제</a></td>-->
+                <td>
+                    <a th:href="@{/gift/{id}(id=${gift.giftId})}" th:text="${gift.name}"></a>
+                </td>
+                    <td th:text="${gift.category}"></td>
+                    <td th:text="${gift.price}"></td>
+                    <td th:text="${gift.sales_link}"></td>
+                </a>
             </tr>
             </tbody>
         </table>
