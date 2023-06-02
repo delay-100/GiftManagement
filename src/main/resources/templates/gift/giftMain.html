@@ -2,22 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Home</title>
+  <title>Main</title>
+  <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUITE/fonts/static/woff2/SUITE.css" rel="stylesheet">
+  <style>
+        * {
+            font-family: 'SUITE', sans-serif;
+        }
+        h1 {
+            padding: 5px 10px;
+            border-bottom: 1px solid #848484;
+            border-left: 8px solid #848484;
+        }
+        .header {
+            color: inherit;
+            text-decoration: none;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            height: 80vh;
+        }
+        button {
+            width: 200px;
+            height: 50px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 7px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 0 auto;
+        }
+  </style>
 </head>
+<header>
+  <h1><a href="/gift" class="header">선물 정보 관리 시스템</a></h1>
+</header>
 <body>
 <div class="container">
-  <div>
-    <h1><a href="/">선물 정보 관리 시스템 </a> </h1>
     <p>
-      <button onclick="location.href='/gift/list'">선물목록</button >
+      <button onclick="location.href='/gift/list'">선물 목록</button >
     </p>
-<!--    <p>-->
-<!--      <button onclick="location.href='/giftceo/new'">선물추가</button >-->
-<!--    </p>-->
     <p>
-      <button onclick="location.href='/gift/search'">선물검색</button >
+      <button onclick="location.href='/gift/search'">선물 검색</button >
     </p>
-  </div>
 </div> <!-- /container -->
 </body>
 </html>
