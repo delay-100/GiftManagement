@@ -11,19 +11,20 @@
         <table border ="1" width="50%" height=200 bordercolor="black">
             <thead>
             <tr>
-                <th colspan="4">선물 목록</th>
+                <th colspan="5">선물 목록</th>
             </tr>
             </thead>
             <tbody>
             <tr>
+                <td>id</td>
                 <td>name</td>
                 <td>category</td>
                 <td>price</td>
                 <td>sales_link</td>
-
             </tr>
 
             <tr th:each="gift : ${giftList}">
+                <td th:text="${gift.giftId}"></td>
                 <td>
                     <a th:href="@{/gift/{id}(id=${gift.giftId})}" th:text="${gift.name}"></a>
                 </td>
