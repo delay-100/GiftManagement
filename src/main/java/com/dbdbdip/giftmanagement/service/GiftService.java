@@ -93,8 +93,8 @@ public class GiftService {
 //        }
     }
 
-    // user가 gift 찜하기
-    public GiftPageDTO likeGift(Long giftId, String users){
+    // user가 gift 찜하기/찜 안하기
+    public GiftPageDTO likeGift(Long giftId, String users) {
         Users user = usersRepository.FindByUsersIdToString(users);
         Gift gift = giftRepository.findByGiftId(giftId);
 
@@ -102,20 +102,33 @@ public class GiftService {
 //            return
 //        } else {
 
-        Likes likes = Likes.builder()
-                        .giftId(gift)
-                        .userId(user)
-                .build();
+        Likes like = likesRepository.findByGiftIdAndUserId(gift, user);
+        if (like==null) {
+            Likes likes = Likes.builder()
+                    .giftId(gift)
+                    .userId(user)
+                    .build();
 
-        likesRepository.save(likes);
-        return GiftPageDTO.builder()
-                .giftId(gift.getGiftId())
-                .name(gift.getName())
-                .category(gift.getCategory())
-                .sales_link(gift.getSalesLink())
-                .price(gift.getPrice())
-                .likes(true)
-                .build();
+            likesRepository.save(likes);
+            return GiftPageDTO.builder()
+                    .giftId(gift.getGiftId())
+                    .name(gift.getName())
+                    .category(gift.getCategory())
+                    .sales_link(gift.getSalesLink())
+                    .price(gift.getPrice())
+                    .likes(true)
+                    .build();
+        } else {
+            likesRepository.deleteById(like.getLikesId());
+            return GiftPageDTO.builder()
+                    .giftId(gift.getGiftId())
+                    .name(gift.getName())
+                    .category(gift.getCategory())
+                    .sales_link(gift.getSalesLink())
+                    .price(gift.getPrice())
+                    .likes(false)
+                    .build();
+        }
 
 //        }
     }

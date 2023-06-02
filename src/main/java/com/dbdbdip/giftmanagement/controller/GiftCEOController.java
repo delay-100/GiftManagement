@@ -84,7 +84,7 @@ public class GiftCEOController {
     // ceo가 자신의 gift 삭제
     @DeleteMapping("/delete/{giftId}")
     public String deleteGift(@PathVariable("giftId") Long giftId,HttpSession session){
-        Boolean b = giftCEOService.deleteGift(giftId, (String) session.getAttribute("UsersId"));
+        giftCEOService.deleteGift(giftId, (String) session.getAttribute("UsersId"));
         return "redirect:/giftceo/list";
     }
 }

@@ -56,7 +56,7 @@ public class GiftController { // user, ceo 둘다 가능
         return "gift/gift";
     }
 
-    // user가 gift 찜하기
+    // user가 gift 찜하기/찜안하기
     @PostMapping("/likes/{giftId}")
     public String likeGift(@PathVariable("giftId") Long giftId, HttpSession httpSession, Model model){
         GiftPageDTO giftPageDTO = giftService.likeGift(giftId, (String) httpSession.getAttribute("UsersId"));

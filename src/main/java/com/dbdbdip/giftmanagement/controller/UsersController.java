@@ -98,7 +98,7 @@ public class UsersController {
 
     @DeleteMapping("/leave")
     public ModelAndView leaveDelete(UsersForm usersForm, ModelAndView mav, HttpSession httpSession) {
-        if (usersService.leave(usersForm, httpSession)){
+        if (usersService.leave(usersForm, (String) httpSession.getAttribute("UsersId"))){
             mav.addObject("data", new Message("탈퇴가 완료되었습니다.", "../"));
             mav.setViewName("/common/message");
         }

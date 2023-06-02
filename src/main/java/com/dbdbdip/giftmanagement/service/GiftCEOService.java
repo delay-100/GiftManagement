@@ -147,15 +147,26 @@ public class GiftCEOService {
         }
     }
     // DELETE GIFT
+
     @Transactional
-    public boolean deleteGift(Long giftId , String userId) {
-        if(giftRepository.findByGiftId(giftId).getUserId().getUserId().equals(userId)) {
+    public boolean deleteGift(Long giftId, String userId) {
+        Gift gift = giftRepository.findByGiftId(giftId);
+
+        if (!likesRepository.findByGiftId(gift).isEmpty()) {
+            likesRepository.deleteByGiftId(gift);
+        }
+
+        if (gift.getUserId().getUserId().equals(userId)) {
+            // Remove the association between Gift and User
+            gift.setUserId(null);
+            giftRepository.save(gift);
+
+            // Delete the Gift
             giftRepository.deleteById(giftId);
             return true;
         }
 
         return false;
-
     }
 
 }

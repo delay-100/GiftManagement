@@ -29,6 +29,9 @@ public interface GiftRepository extends JpaRepository<Gift, Long> {
     Gift findByGiftIdUserId(@Param("giftId") Long giftId, @Param("user") Users user);
 
 
+    @Query("SELECT g FROM Gift g WHERE g.userId = :user")
+    List<Gift> findByUserIdList(@Param("user") Users user);
+
     @Query("SELECT g FROM Gift g WHERE g.name LIKE CONCAT('%', :name, '%') and g.category LIKE CONCAT('%', :category, '%') AND g.userId.userId = :userId")
     List<Gift> findByUserIdGiftIdList(@Param("name") String name, @Param("category") String category, @Param("userId") String userId);
 
