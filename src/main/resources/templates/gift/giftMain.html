@@ -8,14 +8,25 @@
         * {
             font-family: 'SUITE', sans-serif;
         }
-        h1 {
-            padding: 5px 10px;
+        header {
+            padding: 10px 10px;
             border-bottom: 1px solid #848484;
             border-left: 8px solid #848484;
         }
-        .header {
+        .header, .headbtn a {
             color: inherit;
             text-decoration: none;
+        }
+        h1, .headbtn {
+            display: inline;
+        }
+        .headbtn {
+            float: right;
+            margin-top: 18px;
+        }
+        .headbtn a {
+            margin-right: 8px;
+            margin-left: 5px;
         }
         .container {
             display: flex;
@@ -41,7 +52,11 @@
   </style>
 </head>
 <header>
-  <h1><a href="/gift" class="header">선물 정보 관리 시스템</a></h1>
+    <h1><a href="/gift" class="header">선물 정보 관리 시스템</a></h1>
+    <div class="headbtn">
+        <a href="/mypage">마이페이지</a>
+        <a href="/auth/logout">로그아웃</a>
+    </div>
 </header>
 <body>
 <div class="container">
