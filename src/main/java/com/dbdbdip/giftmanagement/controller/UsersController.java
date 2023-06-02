@@ -63,7 +63,7 @@ public class UsersController {
     public ModelAndView createLogin(UsersForm usersForm, ModelAndView mav, HttpSession httpSession) {
         boolean isSuccess = usersService.login(usersForm, httpSession);
         if (isSuccess) {
-            mav.addObject("data", new Message("로그인 성공.", "../gift"));
+            mav.addObject("data", new Message("로그인 성공", "../gift"));
             mav.setViewName("/common/message");
         }
         else {
@@ -81,11 +81,11 @@ public class UsersController {
     @PostMapping("/logout")
     public ModelAndView logoutPost(ModelAndView mav, HttpSession httpSession) {
         if (usersService.logout(httpSession)) {
-            mav.addObject("data", new Message("로그아웃 성공.", "../"));
+            mav.addObject("data", new Message("로그아웃 성공", "../"));
             mav.setViewName("/common/message");
         }
         else {
-            mav.addObject("data", new Message("로그아웃 실패.", "../gift"));
+            mav.addObject("data", new Message("로그아웃 실패", "../gift"));
             mav.setViewName("/common/message");
         }
 
