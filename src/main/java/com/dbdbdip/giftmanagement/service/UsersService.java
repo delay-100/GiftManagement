@@ -9,13 +9,13 @@ import com.dbdbdip.giftmanagement.repository.UsersRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class UsersService {
     private final UsersRepository usersRepository;
-    private final LikesRepository likesRepository;
-    private final GiftRepository giftRepository;
+
     public void join(UsersForm usersForm) {
         Users u = Users.builder()
                 .userId(usersForm.getUserId())
@@ -67,6 +67,7 @@ public class UsersService {
         return true;
     }
 
+    @Transactional
     public boolean nicknameUpdate(MyPageDTO myPageDTO, HttpSession httpSession) {
         Users u = usersRepository.findByNickname((String) httpSession.getAttribute("UsersId"));
         if (u.getNickname().equals(myPageDTO.getNickname())) {
@@ -79,6 +80,7 @@ public class UsersService {
         return true;
     }
 
+    @Transactional
     public int passwordUpdate(MyPageDTO myPageDTO, HttpSession httpSession) {
         String currentPassword = (String) httpSession.getAttribute("UsersPassword");
         String newPassword = myPageDTO.getNewPassword();
