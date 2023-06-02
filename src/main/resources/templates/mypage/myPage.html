@@ -16,14 +16,19 @@
         .title {
             font-size: 35px;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-top: 0px;
+            float: left;
         }
         .header, .headbtn a {
             color: inherit;
             text-decoration: none;
         }
-        h1, h3, h4, .headbtn {
+        h1, h3, .headbtn {
             display: inline;
+        }
+        h4 {
+            margin-bottom: 6px;
+            margin-top: 5px;
         }
         .headbtn {
             float: right;
@@ -33,31 +38,87 @@
             margin-right: 8px;
             margin-left: 5px;
         }
+        .form-group {
+            margin-bottom: 10px;
+            width: 82%;
+            line-height: 2;
+        }
         .container {
+            width: 350px;
+            margin: auto;
             display: flex;
-            justify-content: center;
             flex-direction: column;
-            align-items: center;
-            height: 80vh;
-            text-align: center;
+            height: 50vh;
+        }
+        .container2 {
+            width: 700px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            height: 50vh;
+        }
+        .explain {
+            display: inline;
+            font-size: 15px;
+            margin-top: 10px;
+            float: right;
+            color: gray;
+        }
+        title-explain {
+            margin-bottom: 0px;
+            display: inline-block;
+        }
+        .caption-wrapper {
+            display: flex;
+          justify-content: flex-end;
         }
         a {
             color: inherit;
             text-decoration: none;
         }
-        button {
-            width: 58px;
-            height: 30px;
-            background-color: black;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 7px 15px;
-            text-align: center;
-            text-decoration: none;
+        input {
+            width: 90%;
+            height: 40px;
+            border-radius: 30px;
+            padding: 0px 20px;
+            border: 1px solid lightgray;
+            outline: none;
             display: inline-block;
-            font-size: 15px;
-            margin: 0 auto;
+        }
+        button {
+            margin-top: 15px;
+            width: 100%;
+            height: 40px;
+            font-size: 17px;
+            border: 0;
+            outline: none;
+            border-radius: 40px;
+            background: black;
+            color: white;
+        }
+        table {
+            width: 700px;
+            text-align: center;
+            border: 1px solid #fff;
+            border-spacing: 1px;
+            position: relative;
+        }
+        caption {
+            font-size: 25px;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: translate(0%, -100%);
+            padding: 10px;
+        }
+        table tbody {
+            padding: 10px;
+            background-color: #eee;
+        }
+        table thead {
+            background-color: #333;
+            color: #fff;
         }
   </style>
 </head>
@@ -68,13 +129,16 @@
         <a href="/mypage">마이페이지</a>
         <a href="/auth/logout">로그아웃</a>
     </div>
+
 </header>
 <body>
 <div>
-    <h1 class="title">MY PAGE</h1>
-
-    <a th:text="${userNickname} + ' 님의 마이페이지 입니다.'"></a>
-    <div>
+    <div class="title-explain">
+        <h1 class="title">MY PAGE</h1>
+        <a class="explain" th:text="${userNickname} + ' 님의 마이페이지 입니다.'"></a>
+    </div>
+    <br><br><br><br>
+    <div class="container">
         <h3>개인정보 수정</h3>
         <form action="/auth/nicknameUpdate" method="post">
             <input type="hidden" name="_method" value="patch">
@@ -93,12 +157,35 @@
                 <button type="submit" class="btn">변경</button>
             </div>
         </form>
+        <br>
+    </div>
+    <div class="container2">
+        <table>
+            <caption>찜 목록</caption>
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>제목</td>
+                <td>카테고리</td>
+                <td>가격</td>
+                <td>링크</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="gift : ${giftList}">
+                <td th:text="${gift.giftId}"></td>
+                <td><a th:href="@{/giftceo/{id}(id=${gift.giftId})}" th:text="${gift.name}"></a></td>
+                <td th:text="${gift.category}"></td>
+                <td th:text="${gift.price}"></td>
+                <td><a th:href="${gift.sales_link}" th:text="${gift.sales_link}"></a></td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="explain" href="/auth/leave">탈퇴</a>
     </div>
     <br>
-    <div>
-        <h3>찜 목록</h3>
-    </div>
-    <a href="/auth/leave">탈퇴</a>
+
+</div>
 </div>
 </body>
 </html>
