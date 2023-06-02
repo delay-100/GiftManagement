@@ -147,4 +147,15 @@ public class GiftCEOService {
         }
     }
     // DELETE GIFT
+    @Transactional
+    public boolean deleteGift(Long giftId , String userId) {
+        if(giftRepository.findByGiftId(giftId).getUserId().getUserId().equals(userId)) {
+            giftRepository.deleteById(giftId);
+            return true;
+        }
+
+        return false;
+
+    }
+
 }
