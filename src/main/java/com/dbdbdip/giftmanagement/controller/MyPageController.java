@@ -17,6 +17,7 @@ public class MyPageController {
     @GetMapping()
     public String getMypage(Model model, HttpSession httpSession) {
         model.addAttribute("userNickname", myPageService.getNickname(httpSession));
+        model.addAttribute("giftList", myPageService.getMyLikesList((String)httpSession.getAttribute("UsersId")));
         return "mypage/myPage";
     }
 }
