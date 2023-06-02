@@ -16,3 +16,7 @@ spring:
     enabled: true
     prefix: classpath:/templates/
     suffix: .html
+  mvc:
+    hidden-method:
+      filter:
+        enabled: true

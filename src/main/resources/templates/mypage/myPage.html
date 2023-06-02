@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>MyPage</title>
 </head>
 <body>
-  MYPAGE가 들어갈 곳입니다.
-  <a href="/giftceo" class="btn">CEO 페이지로 이동</a>
+<div>
+    <h1><a href="/">선물 정보 관리 시스템 </a> </h1>
+    <h2>MY PAGE</h2>
+    <a href="/giftceo" class="btn">CEO 페이지로 이동</a>
+    <a th:text="${userNickname} + ' 님의 마이페이지 입니다.'"></a>
+    <div>
+       <p>찜 목록</p>
+    </div>
+    <div>
+        <p>개인정보 수정</p>
+    </div>
+    <a href="/auth/leave">탈퇴</a>
+</div>
 </body>
 </html>
