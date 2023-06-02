@@ -27,9 +27,6 @@
             margin-right: 8px;
             margin-left: 5px;
         }
-        .re {
-            width: 200px;
-        }
         .back {
             color: inherit;
             text-decoration: none;
@@ -97,10 +94,7 @@
     </div>
 </header>
 <body>
-<div class="re">
-    <a href="javascript:history.back()" class="back">◀ 이전 페이지</a></br>
-    <a href="/gift" class="back">◀ 메인으로 돌아가기</a>
-</div>
+<a href="javascript:history.back()" class="back">◀ 이전 페이지</a></br>
 <div class="container">
     <table>
         <caption class="gift">선물 상세 정보</caption>
@@ -121,7 +115,7 @@
             <td th:text="${gift.name}"></td>
             <td th:text="${gift.category}"></td>
             <td th:text="${gift.price}"></td>
-            <td th:text="${gift.sales_link}"></td>
+            <td><a th:href="${gift.sales_link}" th:text="${gift.sales_link}"></a></td>
             <td th:text="${gift.likes}"></td>
         </tr>
         </tbody>
