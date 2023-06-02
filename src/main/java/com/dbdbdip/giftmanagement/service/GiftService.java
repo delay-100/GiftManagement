@@ -34,8 +34,8 @@ public class GiftService {
             GiftDTO boardDto = GiftDTO.builder()
                     .giftId(g.getGiftId())
                     .name(g.getName())
-                    .price(g.getPrice())
                     .category(g.getCategory())
+                    .price(g.getPrice())
                     .sales_link(g.getSalesLink())
                     .build();
             list.add(boardDto);
