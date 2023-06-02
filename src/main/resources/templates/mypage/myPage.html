@@ -11,6 +11,7 @@
         header {
             padding: 10px 10px;
             border-bottom: 1px solid #848484;
+            margin-bottom: 10px;
         }
         .header, .headbtn a {
             color: inherit;
@@ -27,32 +28,32 @@
             margin-right: 8px;
             margin-left: 5px;
         }
+        .title {
+            font-size: 35px;
+            font-weight: 700;
+            margin-left: 20px;
+        }
         .explain {
-            margin-top: 10px;
+            margin-top: 1px;
             font-size: 18px;
             height: 30px;
             float: right;
             color: gray;
-            margin-right: 10px;
+            margin-right: 20px;
         }
         .container {
             width: 350px;
             margin: auto;
+            margin-bottom: 30px;
             display: flex;
             justify-content: center;
             flex-direction: column;
-            height: 70vh;
             padding-left: 50px;
         }
-        .title {
-            font-size: 35px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
         .title2 {
-            font-size: 20px;
-            margin-top: 7px;
-            color: gray;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
         }
         .form-group {
             margin-bottom: 15px;
@@ -99,8 +100,8 @@
             margin: auto;
         }
         caption {
-            font-size: 30px;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 700;
             margin-bottom: 15px;
         }
         table tbody {
@@ -132,9 +133,9 @@
     </div>
 </header>
 <body>
-<p class="explain" th:text="''' + ${userNickname} + ''님의 마이페이지 입니다.'"></p>
+<a class="title">My Page</a>
+<a class="explain" th:text="${userNickname} + '님의 마이페이지 입니다.'"></a>
 <div class="container">
-    <h1 class="title">마이페이지</h1>
     <p class="title2">개인정보 수정</p>
     <form action="/auth/nicknameUpdate" method="post">
     <input type="hidden" name="_method" value="patch">
