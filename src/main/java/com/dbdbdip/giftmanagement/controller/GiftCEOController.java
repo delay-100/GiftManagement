@@ -82,10 +82,9 @@ public class GiftCEOController {
     }
 
     // ceo가 자신의 gift 삭제
-//    @PostMapping("/delete/{giftId}")
-//    public String updateGift(@PathVariable("giftId") Long giftId, @ModelAttribute GiftDTO giftDTO, HttpSession session, Model model){
-//        GiftDTO giftdto = giftCEOService.updateBoard(giftId, giftDTO, (String) session.getAttribute("UsersId"));
-//        model.addAttribute("gift",giftDTO);
-//        return "redirect:/giftceo/" + giftId;
-//    }
+    @DeleteMapping("/delete/{giftId}")
+    public String deleteGift(@PathVariable("giftId") Long giftId,HttpSession session){
+        Boolean b = giftCEOService.deleteGift(giftId, (String) session.getAttribute("UsersId"));
+        return "redirect:/giftceo/list";
+    }
 }

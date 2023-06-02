@@ -31,7 +31,10 @@
         <td th:text="${gift.sales_link}"></td>
         <td th:text="${gift.price}"></td>
         <td><a th:href="@{/giftceo/update/{id}(id = ${gift.giftId})}">수정</a></td>
-        <td><a th:href="@{/giftceo/delete/{id}(id = ${gift.giftId})}">삭제</a></td>
+        <td><form th:action="@{/giftceo/delete/{id}(id=${gift.giftId})}" method="post">
+          <input type="hidden" name="_method" value="delete" />
+          <button type="submit">삭제</button>
+        </form></td>
       </tr>
       </tbody>
     </table>
