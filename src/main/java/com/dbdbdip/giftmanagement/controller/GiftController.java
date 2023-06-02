@@ -61,6 +61,6 @@ public class GiftController { // user, ceo 둘다 가능
     public String likeGift(@PathVariable("giftId") Long giftId, HttpSession httpSession, Model model){
         GiftPageDTO giftPageDTO = giftService.likeGift(giftId, (String) httpSession.getAttribute("UsersId"));
         model.addAttribute("gift",giftPageDTO);
-        return "gift/gift";
+        return "redirect:/gift/" + giftId;
     }
 }

@@ -32,6 +32,7 @@ public class GiftService {
 
         for(Gift g : giftList) {
             GiftDTO boardDto = GiftDTO.builder()
+                    .giftId(g.getGiftId())
                     .name(g.getName())
                     .price(g.getPrice())
                     .category(g.getCategory())
@@ -49,6 +50,7 @@ public class GiftService {
         List<GiftDTO> list  = new ArrayList<>();
         for (Gift gift : giftRepository.findAllSearch(giftDTO.getName(), giftDTO.getCategory())){
             GiftDTO gift2 = GiftDTO.builder()
+                    .giftId(gift.getGiftId())
                     .name(gift.getName())
                     .category(gift.getCategory())
                     .price(gift.getPrice())
@@ -71,6 +73,7 @@ public class GiftService {
 
         if(likes==null) {
             return GiftPageDTO.builder()
+                    .giftId(gift.getGiftId())
                     .name(gift.getName())
                     .category(gift.getCategory())
                     .sales_link(gift.getSalesLink())
@@ -79,6 +82,7 @@ public class GiftService {
                     .build();
         }
         return GiftPageDTO.builder()
+                .giftId(gift.getGiftId())
                 .name(gift.getName())
                 .category(gift.getCategory())
                 .sales_link(gift.getSalesLink())
@@ -105,6 +109,7 @@ public class GiftService {
 
         likesRepository.save(likes);
         return GiftPageDTO.builder()
+                .giftId(gift.getGiftId())
                 .name(gift.getName())
                 .category(gift.getCategory())
                 .sales_link(gift.getSalesLink())

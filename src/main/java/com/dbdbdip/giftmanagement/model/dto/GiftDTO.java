@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GiftDTO {
+    private Long giftId;
     private String name;
     private int price;
     private String category;
