@@ -35,6 +35,18 @@ public class UsersService {
     }
 
     @Transactional
+    public boolean idCheck(UsersForm usersForm) {
+        Users u = usersRepository.findByUserId(usersForm.getUserId());
+        // 입력받은 아이디와 같은 아이디가 없으면 true
+        if (u == null) {
+            return true;
+        }
+
+        // 입력받은 아이디와 같은 아이디가 있으면 false
+        return false;
+    }
+
+    @Transactional
     public boolean login(UsersForm usersForm, HttpSession httpSession) {
         if (usersForm.getUserId().length() == 0 || usersForm.getPassword().length() == 0) {
             // 아이디를 입력하지 않았거나 비밀번호를 입력하지 않은 경우

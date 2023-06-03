@@ -29,7 +29,7 @@ public class UsersController {
     @PostMapping("/signup")
     public ModelAndView createSignup(UsersForm usersForm, ModelAndView mav) {
         if (usersForm.getUserId().length() == 0) {
-            mav.addObject("data", new Message("ID를 입력해주세요.", "signup"));
+            mav.addObject("data", new Message("아이디를 입력해주세요.", "signup"));
             mav.setViewName("/common/message");
         }
         else if (usersForm.getPassword().length() == 0) {
@@ -45,10 +45,16 @@ public class UsersController {
             mav.setViewName("/common/message");
         }
         else {
-            usersService.join(usersForm);
+            if (usersService.idCheck(usersForm)) {
+                usersService.join(usersForm);
 
-            mav.addObject("data", new Message("회원가입이 완료되었습니다.", "login"));
-            mav.setViewName("/common/message");
+                mav.addObject("data", new Message("회원가입이 완료되었습니다.", "login"));
+                mav.setViewName("/common/message");
+            }
+            else {
+                mav.addObject("data", new Message("이미 존재하는 아이디입니다.", "signup"));
+                mav.setViewName("/common/message");
+            }
         }
 
         return mav;
@@ -67,7 +73,7 @@ public class UsersController {
             mav.setViewName("/common/message");
         }
         else {
-            mav.addObject("data", new Message("ID나 비밀번호를 확인해주세요.", "login"));
+            mav.addObject("data", new Message("아이디나 비밀번호를 확인해주세요.", "login"));
             mav.setViewName("/common/message");
         }
         return mav;
