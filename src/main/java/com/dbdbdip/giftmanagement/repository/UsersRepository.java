@@ -29,4 +29,22 @@ public interface UsersRepository extends JpaRepository<Users, String> {
 
 
     Users findByUserId(String userId);
+
+
+
+        @Modifying
+        @Query("DELETE FROM Gift g WHERE g.userId = :user")
+        void deleteGiftsByUser(@Param("user") Users user);
+
+        @Modifying
+        @Query("DELETE FROM Likes l WHERE l.userId = :user")
+        void deleteLikesByUser(@Param("user") Users user);
+
+        @Transactional
+        default void deleteAndCascadeGiftsAndLikes(Users user) {
+            deleteLikesByUser(user);
+            deleteGiftsByUser(user);
+            delete(user);
+        }
+
 }
