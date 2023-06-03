@@ -3,6 +3,7 @@ package com.dbdbdip.giftmanagement.service;
 import com.dbdbdip.giftmanagement.model.dto.MyPageDTO;
 import com.dbdbdip.giftmanagement.model.dto.UsersForm;
 import com.dbdbdip.giftmanagement.model.entity.Gift;
+import com.dbdbdip.giftmanagement.model.entity.Likes;
 import com.dbdbdip.giftmanagement.model.entity.Users;
 import com.dbdbdip.giftmanagement.repository.GiftRepository;
 import com.dbdbdip.giftmanagement.repository.LikesRepository;
@@ -64,42 +65,36 @@ public class UsersService {
 
     @Transactional
     public boolean leave(UsersForm usersForm, String userId) {
-        Users user = usersRepository.findByUserId(userId);
-        List<Gift> giftList = giftRepository.findByUserIdList(user);
+            Users user = usersRepository.findByUserId(userId);
 
-        for(Gift g : giftList){
-            deleteGift(g.getGiftId(), userId);
-        }
+            // 1. 유저와 관련된 좋아요 정보 삭제
+            List<Likes> userLikes = likesRepository.findByUserId(user);
+            for (Likes l : userLikes) {
+                likesRepository.deleteById(l.getLikesId());
+            }
 
-        if(usersRepository.findByIdAndPassword(usersForm.getPassword(), userId).isEmpty()) {
-            return false;
-        }
+            // 2. 유저와 관련된 게시글 정보 삭제
+            List<Gift> userGifts = giftRepository.findByUserIdList(user);
+            for (Gift gift : userGifts) {
 
-        usersRepository.deleteById(userId);
-        return true;
-    }
+                if (gift.getUserId().getUserId().equals(userId)) {
+                    gift.setUserId(null);
+                    giftRepository.save(gift);
 
-    @Transactional
-    public boolean deleteGift(Long giftId, String userId) {
-        Gift gift = giftRepository.findByGiftId(giftId);
+                    giftRepository.deleteById(gift.getGiftId());
+                }
+            }
 
-        if (!likesRepository.findByGiftId(gift).isEmpty()) {
-            likesRepository.deleteByGiftId(gift);
-        }
+            // 3. 유저 정보 삭제
+        if(!usersRepository.findByIdAndPassword(usersForm.getPassword(), userId).isEmpty()) {
+            usersRepository.deleteById(userId);
 
-        if (gift.getUserId().getUserId().equals(userId)) {
-            // Remove the association between Gift and User
-            gift.setUserId(null);
-            giftRepository.save(gift);
-
-            // Delete the Gift
-            giftRepository.deleteById(giftId);
             return true;
         }
-
-        return false;
+        else {
+            return false;
+        }
     }
-
 
     @Transactional
     public boolean nicknameUpdate(MyPageDTO myPageDTO, HttpSession httpSession) {

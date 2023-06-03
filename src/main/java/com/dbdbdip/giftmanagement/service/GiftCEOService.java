@@ -151,17 +151,18 @@ public class GiftCEOService {
     @Transactional
     public boolean deleteGift(Long giftId, String userId) {
         Gift gift = giftRepository.findByGiftId(giftId);
+        List<Likes> likeRepo = likesRepository.findByGiftId(gift);
 
-        if (!likesRepository.findByGiftId(gift).isEmpty()) {
-            likesRepository.deleteByGiftId(gift);
+        if (!likeRepo.isEmpty()) {
+            for(Likes l: likeRepo){
+                likesRepository.deleteById(l.getLikesId());
+            }
         }
 
         if (gift.getUserId().getUserId().equals(userId)) {
-            // Remove the association between Gift and User
             gift.setUserId(null);
             giftRepository.save(gift);
 
-            // Delete the Gift
             giftRepository.deleteById(giftId);
             return true;
         }
