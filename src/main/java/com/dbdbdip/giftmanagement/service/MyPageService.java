@@ -48,7 +48,6 @@ public class MyPageService {
 
     public String getUsersRole(HttpSession httpSession) {
         Users u = usersRepository.findByUserId((String) httpSession.getAttribute("UsersId"));
-        System.out.println(u.getUserRole());
         return u.getUserRole().toString();
     }
 }

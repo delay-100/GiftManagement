@@ -78,45 +78,6 @@ public class UsersService {
         return true;
     }
 
-//        @Transactional
-//    public boolean leave(UsersForm usersForm, String userId) {
-//            Users user = usersRepository.findByUserId(userId);
-//
-//            // 1. 유저와 관련된 좋아요 정보 삭제
-//            List<Likes> userLikes = likesRepository.findByUserId(user);
-////            for (Likes l : userLikes) {
-////                likesRepository.deleteById(l.getLikesId());
-////            }
-//            likesRepository.deleteAll(userLikes);
-//
-//            // 2. 유저와 관련된 게시글 정보 삭제
-//            List<Gift> userGifts = giftRepository.findByUserIdList(user);
-//            for (Gift gift : userGifts) {
-//                List<Likes> likeRepo = likesRepository.findByGiftId(gift);
-//
-//                if (!likeRepo.isEmpty()) {
-//                    for(Likes l: likeRepo){
-//                        likesRepository.deleteById(l.getLikesId());
-//                    }
-//                }
-//                    gift.setUserId(null);
-//                    giftRepository.save(gift);
-//
-//                    giftRepository.deleteById(gift.getGiftId());
-//               }
-//
-//            // 3. 유저 정보 삭제
-//        if(!usersRepository.findByIdAndPassword(usersForm.getPassword(), userId).isEmpty()) {
-//            usersRepository.deleteById(userId);
-//
-//            return true;
-//        }
-//        else {
-//            return false;
-//        }
-//    }
-
-
     @Transactional
     public boolean leave(UsersForm usersForm, String userId) {
             Users user = usersRepository.findByUserId(userId);

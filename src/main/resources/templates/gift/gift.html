@@ -84,6 +84,9 @@
         .like:hover {
             background-color: red;
         }
+        .like-status-red {
+        color: red;
+    }
     </style>
 </head>
 <header>
@@ -116,32 +119,34 @@
             <td th:text="${gift.category}"></td>
             <td th:text="${gift.price}"></td>
             <td><a th:href="${gift.sales_link}" >이동</a></td>
-            <td th:text="${gift.likes}"></td>
-<!--            <td id="likeStatus" th:text="${gift.likes ? '♥' : '♡'}"></td>-->
+<!--            <td th:text="${gift.likes}"></td>-->
+            <td id="likeStatus" th:text="${gift.likes ? '♥' : '♡'}" th:class="${gift.likes ? 'like-status-red' : ''}"></td>
         </tr>
         </tbody>
     </table>
     <div class="btnlike">
-        <form th:action="@{/gift/likes/{id}(id=${gift.giftId})}" method="post">
-            <button type="submit" class="like">찜하기</button>
-        </form>
-<!--        <form action="/gift/likes/{id}" method="post" onsubmit="submitForm(event)">-->
-<!--            <input type="hidden" name="id" th:value="${gift.giftId}" />-->
+<!--        <form th:action="@{/gift/likes/{id}(id=${gift.giftId})}" method="post">-->
 <!--            <button type="submit" class="like">찜하기</button>-->
 <!--        </form>-->
+        <form id="myform" th:action="@{/gift/likes/{id}(id=${gift.giftId})}" method="post" onsubmit="submitFormEvent(event)">
+            <input type="hidden" name="id" th:value="${gift.giftId}" />
+            <button type="submit" class="like">찜하기</button>
+        </form>
     </div>
-<!--    <script>-->
-<!--        function submitForm(event) {-->
-<!--            event.preventDefault();-->
+    <script>
+        function submitFormEvent(event) {
+            event.preventDefault();
 
-<!--            var likeStatus = document.getElementById("likeStatus");-->
-<!--            if (likeStatus.textContent === "♥") {-->
-<!--                likeStatus.textContent = "♡";-->
-<!--            } else {-->
-<!--                likeStatus.textContent = "♥";-->
-<!--            }-->
-<!--        }-->
-<!--    </script>-->
+            var likeStatus = document.getElementById("likeStatus");
+            if (likeStatus.textContent === "♥") {
+                likeStatus.textContent = "♡";
+                likeStatus.classList.remove("like-status-red"); // 빨간색 클래스 제거
+            } else {
+                likeStatus.textContent = "♥";
+                likeStatus.classList.add("like-status-red"); // 빨간색 클래스 추가
+            }
+        }
+    </script>
 </div> <!-- /container -->
 </body>
 </html>
