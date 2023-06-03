@@ -61,6 +61,17 @@
         td {
             height: 35px;
         }
+        #delete-button {
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 0;
+              font-size: inherit;
+              color: #0000EE;
+        }
+        .update-delete {
+              text-decoration:  underline;
+        }
     </style>
 </head>
 <header>
@@ -79,7 +90,7 @@
     <thead>
     <tr>
       <td>ID</td>
-      <td>제목</td>
+      <td>이름</td>
       <td>카테고리</td>
       <td>가격</td>
       <td>링크</td>
@@ -93,11 +104,11 @@
         <td th:text="${gift.name}"></td>
         <td th:text="${gift.category}"></td>
         <td th:text="${gift.price}"></td>
-        <td><a th:href="${gift.sales_link}" th:text="${gift.sales_link}"></a></td>
-        <td><a th:href="@{/giftceo/update/{id}(id = ${gift.giftId})}">수정</a></td>
+        <td><a th:href="${gift.sales_link}" >이동</a></td>
+        <td><a class="update-delete" th:href="@{/giftceo/update/{id}(id = ${gift.giftId})}">수정</a></td>
         <td><form th:action="@{/giftceo/delete/{id}(id=${gift.giftId})}" method="post">
           <input type="hidden" name="_method" value="delete" />
-          <button type="submit">삭제</button>
+          <button class="update-delete" id="delete-button" type="submit">삭제</button>
         </form></td>
     </tr>
     </tbody>

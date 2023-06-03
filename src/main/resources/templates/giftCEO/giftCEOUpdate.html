@@ -94,11 +94,10 @@
 <div class="container">
     <p class="title">선물 수정</p>
     <p class="explain">수정할 선물의 정보를 입력해주세요.</p>
-<!--<form id="updateForm" method="post" action="/giftceo/update/${gift.giftId}">-->
     <form method="post" th:action="@{/giftceo/update/{id}(id=${gift.giftId})}">
         <div class="form-group">
-            <h4>제목</h4>
-            <input id="name" name="name" placeholder="제목을 입력하세요" th:value="${gift.name}">
+            <h4>이름</h4>
+            <input id="name" name="name" placeholder="이름을 입력하세요" th:value="${gift.name}">
         </div>
         <div class="form-group">
             <h4>카테고리</h4>
