@@ -38,13 +38,13 @@ public interface GiftRepository extends JpaRepository<Gift, Long> {
     List<Gift> findByUserIdLikesIdList(@Param("userId") String userId);
 
 
-    @Query("SELECT g FROM Gift g WHERE g.name LIKE CONCAT('%', :name, '%') and g.category LIKE CONCAT('%', :category, '%') AND g.userId.userId = :userId")
+    @Query("SELECT g FROM Gift g WHERE g.name LIKE CONCAT('%', :name, '%') and g.category.name LIKE CONCAT('%', :category, '%') AND g.userId.userId = :userId")
     List<Gift> findByUserIdGiftIdList(@Param("name") String name, @Param("category") String category, @Param("userId") String userId);
 
     @Override
     List<Gift> findAll();
 
     @Query("select g from Gift g where g.name LIKE concat('%', :name, '%')"+
-            " and g.category LIKE concat('%', :category, '%')")
+            " and g.category.name LIKE concat('%', :category, '%')")
     List<Gift> findAllSearch(@Param("name") String name, @Param("category") String category);
 }
