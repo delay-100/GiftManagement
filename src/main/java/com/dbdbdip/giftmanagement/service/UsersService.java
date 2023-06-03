@@ -48,8 +48,11 @@ public class UsersService {
             return false;
         }
         else{
+            Users u = usersRepository.findByUserId(usersForm.getUserId());
+
             httpSession.setAttribute("UsersId", usersForm.getUserId());
             httpSession.setAttribute("UsersPassword", usersForm.getPassword());
+            httpSession.setAttribute("UsersRole", u.getUserRole());
 
             return true;
         }
