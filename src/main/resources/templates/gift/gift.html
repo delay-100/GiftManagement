@@ -102,7 +102,7 @@
         <thead>
         <tr>
             <td>ID</td>
-            <td>제목</td>
+            <td>이름</td>
             <td>카테고리</td>
             <td>가격</td>
             <td>링크</td>
@@ -115,7 +115,7 @@
             <td th:text="${gift.name}"></td>
             <td th:text="${gift.category}"></td>
             <td th:text="${gift.price}"></td>
-            <td><a th:href="${gift.sales_link}" th:text="${gift.sales_link}"></a></td>
+            <td><a th:href="${gift.sales_link}" >이동</a></td>
             <td th:text="${gift.likes}"></td>
         </tr>
         </tbody>
