@@ -2,22 +2,17 @@ package com.dbdbdip.giftmanagement.service;
 
 import com.dbdbdip.giftmanagement.model.dto.GiftDTO;
 import com.dbdbdip.giftmanagement.model.dto.GiftPageDTO;
+import com.dbdbdip.giftmanagement.model.entity.Category;
 import com.dbdbdip.giftmanagement.model.entity.Gift;
 import com.dbdbdip.giftmanagement.model.entity.Likes;
 import com.dbdbdip.giftmanagement.model.entity.Users;
+import com.dbdbdip.giftmanagement.repository.CategoryRepository;
 import com.dbdbdip.giftmanagement.repository.GiftRepository;
 import com.dbdbdip.giftmanagement.repository.LikesRepository;
 import com.dbdbdip.giftmanagement.repository.UsersRepository;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +24,7 @@ public class GiftCEOService {
     private final GiftRepository giftRepository;
     private final UsersRepository usersRepository;
     private final LikesRepository likesRepository;
+    private final CategoryRepository categoryRepository;
 
     @Transactional
     public List<GiftDTO> getGiftList(String usersId){
@@ -40,7 +36,7 @@ public class GiftCEOService {
             GiftDTO gift = GiftDTO.builder()
                     .giftId(g.getGiftId())
                     .name(g.getName())
-                    .category(g.getCategory())
+                    .category(g.getCategory().getName())
                     .price(g.getPrice())
                     .sales_link(g.getSalesLink())
                     .build();
@@ -52,10 +48,11 @@ public class GiftCEOService {
     @Transactional
     public void createNewGift(GiftDTO giftDTO,String usersId) {
         Users user = usersRepository.FindByUsersIdToString(usersId);
+        Category c = categoryRepository.findByName(giftDTO.getCategory());
 
         Gift gift = Gift.builder()
                 .name(giftDTO.getName())
-                .category(giftDTO.getCategory())
+                .category(c)
                 .price(giftDTO.getPrice())
                 .salesLink(giftDTO.getSales_link())
                 .userId(user)
@@ -76,7 +73,7 @@ public class GiftCEOService {
             GiftDTO gift2 = GiftDTO.builder()
                     .giftId(gift.getGiftId())
                     .name(gift.getName())
-                    .category(gift.getCategory())
+                    .category(gift.getCategory().getName())
                     .price(gift.getPrice())
                     .sales_link((gift.getSalesLink()))
                     .build();
@@ -97,7 +94,7 @@ public class GiftCEOService {
         return GiftPageDTO.builder()
                 .giftId(gift.getGiftId())
                 .name(gift.getName())
-                .category(gift.getCategory())
+                .category(gift.getCategory().getName())
                 .sales_link(gift.getSalesLink())
                 .price(gift.getPrice())
                 .build();
@@ -113,7 +110,7 @@ public class GiftCEOService {
         return GiftDTO.builder()
                 .giftId(gift.getGiftId())
                 .name(gift.getName())
-                .category(gift.getCategory())
+                .category(gift.getCategory().getName())
                 .price(gift.getPrice())
                 .sales_link(gift.getSalesLink())
                 .build();
@@ -122,18 +119,20 @@ public class GiftCEOService {
     @Transactional
     public GiftDTO updateBoard(Long giftId, GiftDTO giftDTO, String userId) {
         Optional<Gift> giftOptional = giftRepository.findById(giftId);
-        if(giftOptional.isPresent()) {
+         if(giftOptional.isPresent()) {
             Gift gift = giftOptional.get();
-            // board의 작성자 userId랑 요청한 userId랑 같은 경우 수정 가능
+
             if (userId.equals(gift.getUserId().getUserId())) {
+                Category c = categoryRepository.findByName(giftDTO.getCategory());
+
                 gift.setName(giftDTO.getName());
-                gift.setCategory(giftDTO.getCategory());
+                gift.setCategory(c);
                 gift.setPrice(giftDTO.getPrice());
                 gift.setSalesLink(giftDTO.getSales_link());
-                // media 추가해야함
                 return GiftDTO
                         .builder()
                         .giftId(gift.getGiftId())
+                        .category(c.getName())
                         .name(gift.getName())
                         .price(gift.getPrice())
                         .sales_link(gift.getSalesLink())

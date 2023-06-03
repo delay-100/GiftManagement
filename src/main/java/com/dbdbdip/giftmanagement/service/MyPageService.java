@@ -20,7 +20,6 @@ import java.util.List;
 public class MyPageService {
     private final UsersRepository usersRepository;
     private final GiftRepository giftRepository;
-    private final LikesRepository likesRepository;
 
     public String getNickname(HttpSession httpSession) {
         Users u = usersRepository.findByNickname((String) httpSession.getAttribute("UsersId"));
@@ -39,7 +38,7 @@ public class MyPageService {
                     .name(g.getName())
                     .price(g.getPrice())
                     .sales_link(g.getSalesLink())
-                    .category(g.getCategory())
+                    .category(g.getCategory().getName())
                     .build());
         }
 
