@@ -18,6 +18,7 @@ public class MyPageController {
     public String getMypage(Model model, HttpSession httpSession) {
         model.addAttribute("userNickname", myPageService.getNickname(httpSession));
         model.addAttribute("giftList", myPageService.getMyLikesList((String)httpSession.getAttribute("UsersId")));
+        model.addAttribute("usersRole", myPageService.getUsersRole(httpSession));
         return "mypage/myPage";
     }
 }

@@ -126,12 +126,15 @@
             margin-top: 10px;
             text-decoration: none;
         }
+        .hidden-element {
+            display: none;
+        }
   </style>
 </head>
 <header>
     <h1><a href="/gift" class="header">선물 정보 관리 시스템</a></h1>
     <div class="headbtn">
-        <a href="/giftceo">CEO 페이지</a>
+        <a href="/giftceo" id="ceoElement"  th:data-role="${usersRole}">CEO 페이지</a>
         <a href="/mypage">마이페이지</a>
         <a href="/auth/logout">로그아웃</a>
     </div>
@@ -185,5 +188,19 @@
 <div class="container3">
     <a href="/auth/leave" class="leave">회원탈퇴</a>
 </div>
+<script>
+    var userRole = document.getElementById('ceoElement').getAttribute('data-role');
+    console.log(userRole);
+    var element = document.getElementById('ceoElement');
+
+    if (userRole == 'CEO') {
+        element.style.visibility = 'visible'; // 가시성 변경
+        element.style.opacity = 1; // 투명도 변경
+    }
+    else {
+        element.style.visibility = 'hidden'; // 가시성 변경
+        element.style.opacity = 0; // 투명도 변경
+    }
+</script>
 </body>
 </html>

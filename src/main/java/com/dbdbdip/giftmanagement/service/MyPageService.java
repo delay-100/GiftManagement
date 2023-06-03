@@ -3,6 +3,7 @@ package com.dbdbdip.giftmanagement.service;
 import com.dbdbdip.giftmanagement.model.dto.GiftDTO;
 import com.dbdbdip.giftmanagement.model.entity.Gift;
 import com.dbdbdip.giftmanagement.model.entity.Likes;
+import com.dbdbdip.giftmanagement.model.entity.Role;
 import com.dbdbdip.giftmanagement.model.entity.Users;
 import com.dbdbdip.giftmanagement.repository.GiftRepository;
 import com.dbdbdip.giftmanagement.repository.LikesRepository;
@@ -43,5 +44,11 @@ public class MyPageService {
         }
 
         return giftDTOList;
+    }
+
+    public String getUsersRole(HttpSession httpSession) {
+        Users u = usersRepository.findByUserId((String) httpSession.getAttribute("UsersId"));
+        System.out.println(u.getUserRole());
+        return u.getUserRole().toString();
     }
 }

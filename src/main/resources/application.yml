@@ -4,10 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-
     url: jdbc:mariadb://localhost:3307/giftmanagement?characterEncoding=UTF-8&serverTimezone=UTC
-
-
     username: root
     password: system
   jpa:
