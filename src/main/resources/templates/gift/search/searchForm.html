@@ -100,10 +100,78 @@
         </div>
         <div class="form-group">
             <h4>카테고리</h4>
-            <input type="text" id="category" name="category" placeholder="카테고리를 입력하세요">
+            <!-- 대분류 목록을 표시할 영역 -->
+            <select id="categorySelect" name="parentCategory" onchange="loadSubCategories(this.value)">
+                <!-- 대분류 목록을 동적으로 추가 -->
+            </select>
+
+
+            <!-- 소분류 목록을 표시할 영역 -->
+            <select id="subcategorySelect" name="category">
+                <!-- 소분류 목록을 동적으로 추가 -->
+                <!-- 예시: <option value="1">발렌타인데이</option> -->
+            </select>
         </div>
         <button type="submit" class="btn">검색</button>
     </form>
 </div> <!-- /container -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+    window.onload = function() {
+        loadCategoryList();
+    };
+function loadCategoryList() {
+    fetch('/categories')
+        .then(response => response.json())
+        .then(data => {
+            var categorySelect = document.getElementById('categorySelect');
+
+            // 대분류 목록을 동적으로 추가
+            data.forEach(categoryList => {
+                var option = document.createElement('option');
+                option.value = categoryList.categoryId;
+                option.text = categoryList.name;
+                categorySelect.appendChild(option);
+            });
+
+            // 첫 번째 대분류를 선택
+            categorySelect.selectedIndex = 0;
+
+            // 소분류 목록 로드
+            loadSubCategories(categorySelect.value);
+        })
+        .catch(error => {
+            console.error('Error fetching categories:', error);
+        });
+}
+
+function loadSubCategories(parentCategoryId) {
+    var subcategorySelect = document.getElementById('subcategorySelect');
+
+    // 기존의 소분류 목록 제거
+    subcategorySelect.innerHTML = '';
+
+    fetch(`/categories/${parentCategoryId}`)
+        .then(response => response.json())
+        .then(data => {
+            // 소분류 목록을 동적으로 추가
+            data.forEach(subcategory => {
+                var option = document.createElement('option');
+                option.value = subcategory.subCategoryId;
+                option.text = subcategory.name;
+                subcategorySelect.appendChild(option);
+            });
+
+            // 선택된 소분류 값 변경
+            var selectedSubcategory = subcategorySelect.value;
+        })
+        .catch(error => {
+            console.error('Error fetching subcategories:', error);
+        });
+}
+
+</script>
 </body>
 </html>

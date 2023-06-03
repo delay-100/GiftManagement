@@ -1,5 +1,6 @@
 package com.dbdbdip.giftmanagement.service;
 
+import com.dbdbdip.giftmanagement.model.dto.CategoryListDTO;
 import com.dbdbdip.giftmanagement.model.dto.GiftDTO;
 import com.dbdbdip.giftmanagement.model.dto.GiftPageDTO;
 import com.dbdbdip.giftmanagement.model.entity.Category;
@@ -48,7 +49,7 @@ public class GiftCEOService {
     @Transactional
     public void createNewGift(GiftDTO giftDTO,String usersId) {
         Users user = usersRepository.FindByUsersIdToString(usersId);
-        Category c = categoryRepository.findByName(giftDTO.getCategory());
+        Category c = categoryRepository.findByCategoryId(Long.parseLong(giftDTO.getCategory()));
 
         Gift gift = Gift.builder()
                 .name(giftDTO.getName())
@@ -65,9 +66,9 @@ public class GiftCEOService {
     @Transactional
     public List<GiftDTO> searchMyGift(GiftDTO giftDTO, String usersId){
         Users user = usersRepository.FindByUsersIdToString(usersId);
-        List<Gift> gRepo = giftRepository.findByUserIdGiftIdList(giftDTO.getName(),giftDTO.getCategory(),usersId);
+        Category c = categoryRepository.findByCategoryId(Long.parseLong(giftDTO.getCategory()));
+        List<Gift> gRepo = giftRepository.findByUserIdGiftIdList(giftDTO.getName(),c.getName(),usersId);
 
-        System.out.println(gRepo);
         List<GiftDTO> list  = new ArrayList<>();
         for (Gift gift : gRepo){
             GiftDTO gift2 = GiftDTO.builder()
@@ -117,13 +118,13 @@ public class GiftCEOService {
     }
 
     @Transactional
-    public GiftDTO updateBoard(Long giftId, GiftDTO giftDTO, String userId) {
+    public GiftDTO updateGift(Long giftId, GiftDTO giftDTO, String userId) {
         Optional<Gift> giftOptional = giftRepository.findById(giftId);
          if(giftOptional.isPresent()) {
             Gift gift = giftOptional.get();
 
             if (userId.equals(gift.getUserId().getUserId())) {
-                Category c = categoryRepository.findByName(giftDTO.getCategory());
+                Category c = categoryRepository.findByCategoryId(Long.parseLong(giftDTO.getCategory()));
 
                 gift.setName(giftDTO.getName());
                 gift.setCategory(c);
@@ -168,5 +169,4 @@ public class GiftCEOService {
 
         return false;
     }
-
 }

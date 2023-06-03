@@ -1,5 +1,6 @@
 package com.dbdbdip.giftmanagement.controller;
 
+import com.dbdbdip.giftmanagement.model.dto.CategoryListDTO;
 import com.dbdbdip.giftmanagement.model.dto.GiftDTO;
 import com.dbdbdip.giftmanagement.model.dto.GiftPageDTO;
 import com.dbdbdip.giftmanagement.model.entity.Users;
@@ -35,13 +36,14 @@ public class GiftCEOController {
 
     // ceo가 자신의 gift 추가
     @GetMapping("/new")
-    public String getNewGift(){
+    public String getNewGift(Model model){
+
         return "giftCEO/giftCEOcreate";
     }
 
     @PostMapping("/new")
     public String createNewGift(@ModelAttribute GiftDTO giftDTO, HttpSession session){
-        giftCEOService.createNewGift(giftDTO, (String) session.getAttribute("UsersId"));
+       giftCEOService.createNewGift(giftDTO, (String) session.getAttribute("UsersId"));
         return "redirect:/giftceo/list";
     }
 
@@ -76,7 +78,7 @@ public class GiftCEOController {
 
     @PostMapping("/update/{giftId}")
     public String updateGift(@PathVariable("giftId") Long giftId, @ModelAttribute GiftDTO giftDTO, HttpSession session, Model model){
-        GiftDTO giftdto = giftCEOService.updateBoard(giftId, giftDTO, (String) session.getAttribute("UsersId"));
+        GiftDTO giftdto = giftCEOService.updateGift(giftId, giftDTO, (String) session.getAttribute("UsersId"));
         model.addAttribute("gift",giftDTO);
         return "redirect:/giftceo/" + giftId;
     }
@@ -85,7 +87,6 @@ public class GiftCEOController {
     @DeleteMapping("/delete/{giftId}")
     public String deleteGift(@PathVariable("giftId") Long giftId,HttpSession session){
         boolean a  = giftCEOService.deleteGift(giftId, (String) session.getAttribute("UsersId"));
-       System.out.println(a);
         return "redirect:/giftceo/list";
     }
 }

@@ -2,9 +2,11 @@ package com.dbdbdip.giftmanagement.service;
 
 import com.dbdbdip.giftmanagement.model.dto.GiftDTO;
 import com.dbdbdip.giftmanagement.model.dto.GiftPageDTO;
+import com.dbdbdip.giftmanagement.model.entity.Category;
 import com.dbdbdip.giftmanagement.model.entity.Gift;
 import com.dbdbdip.giftmanagement.model.entity.Likes;
 import com.dbdbdip.giftmanagement.model.entity.Users;
+import com.dbdbdip.giftmanagement.repository.CategoryRepository;
 import com.dbdbdip.giftmanagement.repository.GiftRepository;
 import com.dbdbdip.giftmanagement.repository.LikesRepository;
 import com.dbdbdip.giftmanagement.repository.UsersRepository;
@@ -24,6 +26,7 @@ public class GiftService {
     private final GiftRepository giftRepository;
     private final UsersRepository usersRepository;
     private final LikesRepository likesRepository;
+    private final CategoryRepository categoryRepository;
 
     @Transactional
     public List<GiftDTO> getGiftList(){
@@ -48,7 +51,9 @@ public class GiftService {
     @Transactional
     public List<GiftDTO> searchAllGift(GiftDTO giftDTO){
         List<GiftDTO> list  = new ArrayList<>();
-        for (Gift gift : giftRepository.findAllSearch(giftDTO.getName(), giftDTO.getCategory())){
+        Category c = categoryRepository.findByCategoryId(Long.parseLong(giftDTO.getCategory()));
+
+        for (Gift gift : giftRepository.findAllSearch(giftDTO.getName(), c.getName())){
             GiftDTO gift2 = GiftDTO.builder()
                     .giftId(gift.getGiftId())
                     .name(gift.getName())
