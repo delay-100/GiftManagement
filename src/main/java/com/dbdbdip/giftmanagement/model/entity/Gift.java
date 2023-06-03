@@ -18,13 +18,15 @@ public class Gift {
     @Column(name="gift_id")
     private Long giftId;
     private String name;
-    private String category;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "category_id")
+    private Category category;
     private int price;
     private String salesLink;
 
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime createdDt;
+    private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
