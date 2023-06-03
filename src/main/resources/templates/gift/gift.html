@@ -117,6 +117,7 @@
             <td th:text="${gift.price}"></td>
             <td><a th:href="${gift.sales_link}" >이동</a></td>
             <td th:text="${gift.likes}"></td>
+<!--            <td id="likeStatus" th:text="${gift.likes ? '♥' : '♡'}"></td>-->
         </tr>
         </tbody>
     </table>
@@ -124,7 +125,23 @@
         <form th:action="@{/gift/likes/{id}(id=${gift.giftId})}" method="post">
             <button type="submit" class="like">찜하기</button>
         </form>
+<!--        <form action="/gift/likes/{id}" method="post" onsubmit="submitForm(event)">-->
+<!--            <input type="hidden" name="id" th:value="${gift.giftId}" />-->
+<!--            <button type="submit" class="like">찜하기</button>-->
+<!--        </form>-->
     </div>
+<!--    <script>-->
+<!--        function submitForm(event) {-->
+<!--            event.preventDefault();-->
+
+<!--            var likeStatus = document.getElementById("likeStatus");-->
+<!--            if (likeStatus.textContent === "♥") {-->
+<!--                likeStatus.textContent = "♡";-->
+<!--            } else {-->
+<!--                likeStatus.textContent = "♥";-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
 </div> <!-- /container -->
 </body>
 </html>

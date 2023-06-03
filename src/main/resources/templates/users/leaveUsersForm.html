@@ -11,10 +11,16 @@
         h1 {
             padding: 5px 10px;
             border-bottom: 1px solid #848484;
+            margin-bottom: 10px;
         }
         .header {
             color: inherit;
             text-decoration: none;
+        }
+        .back {
+            color: inherit;
+            text-decoration: none;
+            margin-left: 10px;
         }
         .title {
             font-size: 35px;
@@ -38,7 +44,7 @@
             margin-top: 5px;
         }
         input[type=password] {
-            width: 100%;
+            width: 104%;
             height: 40px;
             border-radius: 30px;
             padding: 0px 20px;
@@ -63,6 +69,7 @@
 <header>
     <h1><a href="/" class="header">선물 정보 관리 시스템</a></h1>
 </header>
+<a href="javascript:history.back()" class="back">◀ 이전 페이지</a>
 <div class="container">
     <p class="title">회원 탈퇴</p>
     <form action="/auth/leave" method="post">
