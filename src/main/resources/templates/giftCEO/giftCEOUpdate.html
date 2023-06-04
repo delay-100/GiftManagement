@@ -68,6 +68,19 @@
             outline: none;
             display: inline-block;
         }
+        .form-group2 {
+            margin-bottom: 15px;
+            width: 101%;
+        }
+        select {
+            width: 44%;
+            height: 40px;
+            border-radius: 30px;
+            padding: 0px 15px;
+            border: 1px solid lightgray;
+            outline: none;
+            display: inline-block;
+        }
         .btn {
             margin-top: 8px;
             width: 90%;
@@ -96,11 +109,11 @@
     <p class="explain">수정할 선물의 정보를 입력해주세요.</p>
     <form method="post" th:action="@{/giftceo/update/{id}(id=${gift.giftId})}">
         <div class="form-group">
-            <h4>이름</h4>
-            <input id="name" name="name" placeholder="이름을 입력하세요" th:value="${gift.name}">
+            <h4>상품명</h4>
+            <input id="name" name="name" placeholder="상품명을 입력하세요" th:value="${gift.name}">
         </div>
-        <div class="form-group">
-            <h4>카테고리</h4>
+        <h4>카테고리</h4>
+        <div class="form-group2">
             <!-- 대분류 목록을 표시할 영역 -->
             <select id="categorySelect" name="parentCategory" onchange="loadSubCategories(this.value)">
                 <!-- 대분류 목록을 동적으로 추가 -->
