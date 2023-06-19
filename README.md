@@ -49,7 +49,7 @@ https://www.toptal.com/developers/gitignore
 
 - <b>clone : github → local</b>
 ``` 
-git clone https://github.com/star-moon-cloud-k/RUDoori-.git
+git clone https://github.com/delay-100/GiftManagement.git
 ```
 - <b>branch 이름 확인
 ```
