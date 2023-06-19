@@ -51,7 +51,6 @@ public class GiftController { // user, ceo 둘다 가능
     }
 
     @GetMapping("/{giftId}")
-
     public String getGift(@PathVariable("giftId") Long giftId, HttpSession httpSession, Model model){
         GiftPageDTO giftPageDTO = giftService.getGift(giftId, (String) httpSession.getAttribute("UsersId"));
         model.addAttribute("gift",giftPageDTO);

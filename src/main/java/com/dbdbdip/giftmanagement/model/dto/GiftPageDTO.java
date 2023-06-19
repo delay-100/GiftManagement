@@ -15,4 +15,6 @@ public class GiftPageDTO {
     private String category;
     private String sales_link;
     private boolean likes;
+    private String ceoNickName;
+    private String ceoUserId;
 }

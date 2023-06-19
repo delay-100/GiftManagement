@@ -79,7 +79,7 @@ public class GiftService {
         Users user = usersRepository.FindByUsersIdToString(users);
         Gift gift = giftRepository.findByGiftId(giftId);
         Likes likes = likesRepository.findByGiftIdAndUserId(gift,user);
-
+        Users giftUser = usersRepository.findByUserId(gift.getUserId().getUserId());
 //        if(users.isEmpty()||gift.isEmpty()){
 //            return
 //        } else {
@@ -92,6 +92,8 @@ public class GiftService {
                     .sales_link(gift.getSalesLink())
                     .price(gift.getPrice())
                     .likes(false)
+                    .ceoNickName(giftUser.getNickname())
+                    .ceoUserId(giftUser.getUserId())
                     .build();
         }
         return GiftPageDTO.builder()
@@ -101,6 +103,8 @@ public class GiftService {
                 .sales_link(gift.getSalesLink())
                 .price(gift.getPrice())
                 .likes(true)
+                .ceoNickName(giftUser.getNickname())
+                .ceoUserId(giftUser.getUserId())
                 .build();
 
 //        }
