@@ -1,7 +1,8 @@
-# GiftManagement
+![image](https://github.com/delay-100/GiftManagement/assets/49058580/589526e9-46f5-4efa-b41c-5979cf08a00e)# GiftManagement
 ### Knu dbP project
 ## 데이터베이스 프로그래밍 프로젝트
 
+- 프로젝트 설명 PPT: 
 - 작업 스프레드시트: https://docs.google.com/spreadsheets/d/1etbfkTbC5fK2ZxU7mUW5zJ4jBd48RMnKlROYoGpQviI/edit?usp=sharing
 - ERD CLOUD: https://www.erdcloud.com/d/Jj2eCvvraJPYXo8Yv
 - 프로젝트 실행 관련 SQL : https://drive.google.com/file/d/1243uI3f6OpKwam60LAttEnEpbsWHbb9P/view?usp=sharing
