@@ -104,7 +104,7 @@
         <td th:text="${gift.name}"></td>
         <td th:text="${gift.category}"></td>
         <td th:text="${gift.price}"></td>
-        <td><a th:href="${gift.sales_link}" >이동</a></td>
+        <td><a th:href="${gift.sales_link}" target="_blank" >이동</a></td>
         <td><a class="update-delete" th:href="@{/giftceo/update/{id}(id = ${gift.giftId})}">수정</a></td>
         <td><form th:action="@{/giftceo/delete/{id}(id=${gift.giftId})}" method="post">
           <input type="hidden" name="_method" value="delete" />
