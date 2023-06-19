@@ -2,7 +2,15 @@
 ### Knu dbP project
 ## 데이터베이스 프로그래밍 프로젝트
 
-Thymleaf + SpringBoot + mariaDB
+작업 스프레드시트: https://docs.google.com/spreadsheets/d/1etbfkTbC5fK2ZxU7mUW5zJ4jBd48RMnKlROYoGpQviI/edit?usp=sharing
+ERD CLOUD: https://www.erdcloud.com/d/Jj2eCvvraJPYXo8Yv
+프로젝트 실행 관련 SQL : https://drive.google.com/file/d/1243uI3f6OpKwam60LAttEnEpbsWHbb9P/view?usp=sharing
+
+## 기술 스택 
+- FrontEnd: Thymleaf, javascript
+- BackEnd: SpringBoot
+- DataBase: mariaDB
+
 <br>
 
 ## 규칙
