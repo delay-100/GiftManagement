@@ -1,4 +1,4 @@
-![image](https://github.com/delay-100/GiftManagement/assets/49058580/589526e9-46f5-4efa-b41c-5979cf08a00e)# GiftManagement
+# GiftManagement
 ### Knu dbP project
 ## 데이터베이스 프로그래밍 프로젝트
 
