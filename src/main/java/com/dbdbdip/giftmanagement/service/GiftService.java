@@ -1,6 +1,7 @@
 package com.dbdbdip.giftmanagement.service;
 
 import com.dbdbdip.giftmanagement.model.dto.GiftDTO;
+import com.dbdbdip.giftmanagement.model.dto.GiftListDTO;
 import com.dbdbdip.giftmanagement.model.dto.GiftPageDTO;
 import com.dbdbdip.giftmanagement.model.entity.Category;
 import com.dbdbdip.giftmanagement.model.entity.Gift;
@@ -29,17 +30,20 @@ public class GiftService {
     private final CategoryRepository categoryRepository;
 
     @Transactional
-    public List<GiftDTO> getGiftList(){
+    public List<GiftListDTO> getGiftList(){
         List<Gift> giftList = giftRepository.findAll();
-        List<GiftDTO> list = new ArrayList<>();
+        List<GiftListDTO> list = new ArrayList<>();
 
         for(Gift g : giftList) {
-            GiftDTO boardDto = GiftDTO.builder()
+            Users user = usersRepository.findByUserId(g.getUserId().getUserId());
+            GiftListDTO boardDto = GiftListDTO.builder()
                     .giftId(g.getGiftId())
                     .name(g.getName())
                     .category(g.getCategory().getName())
                     .price(g.getPrice())
                     .sales_link(g.getSalesLink())
+                    .ceoNickName(user.getNickname())
+                    .ceoUserId(user.getUserId())
                     .build();
             list.add(boardDto);
         }
@@ -49,17 +53,21 @@ public class GiftService {
 
     // user가 gift 전체 검색하기
     @Transactional
-    public List<GiftDTO> searchAllGift(GiftDTO giftDTO){
-        List<GiftDTO> list  = new ArrayList<>();
+    public List<GiftListDTO> searchAllGift(GiftDTO giftDTO){
+        List<GiftListDTO> list  = new ArrayList<>();
         Category c = categoryRepository.findByCategoryId(Long.parseLong(giftDTO.getCategory()));
 
         for (Gift gift : giftRepository.findAllSearch(giftDTO.getName(), c.getName())){
-            GiftDTO gift2 = GiftDTO.builder()
+            Users user = usersRepository.findByUserId(gift.getUserId().getUserId());
+
+            GiftListDTO gift2 = GiftListDTO.builder()
                     .giftId(gift.getGiftId())
                     .name(gift.getName())
                     .category(gift.getCategory().getName())
                     .price(gift.getPrice())
                     .sales_link((gift.getSalesLink()))
+                    .ceoNickName(user.getNickname())
+                    .ceoUserId(user.getUserId())
                     .build();
             list.add(gift2);
         }

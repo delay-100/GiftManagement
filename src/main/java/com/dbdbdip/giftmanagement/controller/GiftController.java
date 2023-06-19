@@ -1,6 +1,7 @@
 package com.dbdbdip.giftmanagement.controller;
 
 import com.dbdbdip.giftmanagement.model.dto.GiftDTO;
+import com.dbdbdip.giftmanagement.model.dto.GiftListDTO;
 import com.dbdbdip.giftmanagement.model.dto.GiftPageDTO;
 import com.dbdbdip.giftmanagement.service.GiftService;
 import jakarta.servlet.http.HttpSession;
@@ -30,7 +31,7 @@ public class GiftController { // user, ceo 둘다 가능
     // user가 전체 gift 리스트 보기
     @GetMapping("/list")
     public String getGiftList(Model model){
-        List<GiftDTO> giftList = giftService.getGiftList();
+        List<GiftListDTO> giftList = giftService.getGiftList();
         model.addAttribute("giftList", giftList);
         return "gift/giftList";
     }
@@ -44,12 +45,13 @@ public class GiftController { // user, ceo 둘다 가능
     // user가 gift 검색하기
     @PostMapping("/search")
     public String searchAllGift(GiftDTO giftDTO, Model model) {
-        List<GiftDTO> giftlist = giftService.searchAllGift(giftDTO);
+        List<GiftListDTO> giftlist = giftService.searchAllGift(giftDTO);
         model.addAttribute("giftList",giftlist);
         return "gift/search/searchList";
     }
 
     @GetMapping("/{giftId}")
+
     public String getGift(@PathVariable("giftId") Long giftId, HttpSession httpSession, Model model){
         GiftPageDTO giftPageDTO = giftService.getGift(giftId, (String) httpSession.getAttribute("UsersId"));
         model.addAttribute("gift",giftPageDTO);

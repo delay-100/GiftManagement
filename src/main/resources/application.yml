@@ -13,7 +13,7 @@ spring:
 
       show-sql: true
   thymeleaf:
-    enabled: true
+    enabled: true 
     prefix: classpath:/templates/
     suffix: .html
   mvc:
